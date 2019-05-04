@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import "antd/dist/antd.css";
 interface Props {}
 interface State {}
 

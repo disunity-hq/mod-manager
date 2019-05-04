@@ -52,5 +52,8 @@
     "directories": {
       "output": "build"
     }
+  },
+  "dependencies": {
+    "antd": "^3.16.6"
   }
 }
