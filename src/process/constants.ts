@@ -1,0 +1,1 @@
+export const BEPINEX_GITHUB_RELEASE_URL: string = "https://api.github.com/repos/bepinex/bepinex/releases";
