@@ -14,10 +14,10 @@ export function extractOnlineZip(
   return new Promise((resolve, reject) => {
     download(focusedWindow, url, {
       directory: tempFolder,
-      filename: "bepinex.zip"
+      filename: "temp.zip"
     })
       .then(_ => {
-        const savedFile: string = path.join(tempFolder, "bepinex.zip");
+        const savedFile: string = path.join(tempFolder, "temp.zip");
         const unzipper = new DecompressZip(savedFile);
         unzipper.extract({
           path: extractPath
