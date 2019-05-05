@@ -1,10 +1,15 @@
 import * as React from "react";
-import "antd/dist/antd.css";
+import { HashRouter, Route } from "react-router-dom";
+import Index from "./components/pages/Index";
 interface Props {}
 interface State {}
 
 export default class App extends React.Component<Props, State> {
   render() {
-    return <h1>Home</h1>;
+    return (
+      <HashRouter>
+        <Route path="/" exact component={Index} />
+      </HashRouter>
+    );
   }
 }
