@@ -1,7 +1,7 @@
 import { BrowserWindow, app } from "electron";
 import { download } from "electron-dl";
 import * as path from "path";
-import * as DecompressZip from "decompress-zip";
+import { extractZip } from "../promisified";
 
 export default class Helpers {
   static async extractOnlineZip(url: string, extractPath: string) {
@@ -13,15 +13,7 @@ export default class Helpers {
         filename: "temp.zip"
       });
       const savedFile: string = path.join(tempFolder, "temp.zip");
-      const unzipper = new DecompressZip(savedFile);
-
-      // decompress-zip doesn't have typescript definitions by default :(
-      unzipper.extract({
-        path: extractPath
-      });
-      unzipper.on("error", (err: any) => {
-        throw new Error(err);
-      });
+      await extractZip(savedFile, extractPath);
     } catch (e) {
       throw new Error(e);
     }
