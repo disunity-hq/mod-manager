@@ -3,7 +3,7 @@ import { HashRouter, Route } from "react-router-dom";
 import Index from "./components/pages/Index";
 import { Provider } from "react-redux";
 import configureStore from "./store";
-
+import "./App.scss";
 const store = configureStore();
 
 interface State {}
