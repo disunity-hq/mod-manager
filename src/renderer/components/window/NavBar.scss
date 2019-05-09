@@ -1,0 +1,25 @@
+.navbar {
+    -webkit-app-region: drag;
+    margin: 1em;
+    display: flex;
+    flex-direction: row;
+}
+.left-side {
+    display: flex;
+    flex: 2;
+    justify-content: flex-start;
+}
+.right-side {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.app-button {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0.4em;
+}
+.clickable {
+    -webkit-app-region: no-drag;
+}

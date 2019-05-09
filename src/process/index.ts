@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import "process";
 let mainWindow: BrowserWindow;
 function createWindow() {
@@ -6,7 +6,7 @@ function createWindow() {
     width: 800,
     height: 600,
     show: false,
-    // frame: false,
+    frame: false,
     webPreferences: {
       webSecurity: false
     }
@@ -38,4 +38,19 @@ app.on("window-all-closed", () => {
 
 app.on("activate", () => {
   if (mainWindow === null) createWindow();
+});
+
+ipcMain.on("app-close", () => {
+  app.exit(0);
+});
+
+/**
+ * TODO: Make them work for focused window instead of the main one.
+ */
+ipcMain.on("app-minimize", () => {
+  mainWindow.minimize();
+});
+
+ipcMain.on("app-maximize", () => {
+  mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize();
 });
