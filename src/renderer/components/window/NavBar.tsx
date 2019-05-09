@@ -2,7 +2,7 @@ import * as React from "react";
 import { Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWindowClose, faWindowMinimize,faWindowMaximize } from "@fortawesome/free-solid-svg-icons";
-import { ipcRenderer} from "electron";
+import { ipcRenderer } from "../../services";
 import "./NavBar.scss";
 
 class NavBar extends React.Component<{}, {}> {

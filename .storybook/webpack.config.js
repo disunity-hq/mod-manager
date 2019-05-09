@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 module.exports = {
   module: {
     rules: [
@@ -26,6 +27,14 @@ module.exports = {
         use: ["style-loader", "css-loader", "sass-loader"]
       }
     ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env.STORYBOOK_ENV": true
+    })
+  ],
+  node: {
+    fs: "empty"
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".jsx"]
