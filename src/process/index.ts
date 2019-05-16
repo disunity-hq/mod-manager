@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import "process";
+
 let mainWindow: BrowserWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -11,12 +12,14 @@ function createWindow() {
       webSecurity: false
     }
   });
+
   mainWindow.once("ready-to-show", () => {
     if (process.env.NODE_ENV === "development") {
       mainWindow.webContents.openDevTools();
     }
     mainWindow.show();
   });
+
   let electron_url: string;
 
   electron_url =
@@ -29,6 +32,15 @@ function createWindow() {
     mainWindow = null;
   });
 }
+
+app.on("ready", () => {
+  BrowserWindow.addDevToolsExtension(
+    "C:\\Users\\Tristan\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\lmhkpmbekcpmknklioeibfkpmmfibljd\\2.17.0_0"
+  );
+  BrowserWindow.addDevToolsExtension(
+    "C:\\Users\\Tristan\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\3.6.0_0"
+  );
+})
 
 app.on("ready", createWindow);
 
