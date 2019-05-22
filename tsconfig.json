@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "allowJs": true,
     "incremental": true,
-    "inlineSourceMap": true
+    "sourceMap": true
   },
   "awesomeTypescriptLoaderOptions": {
     "useCache": true

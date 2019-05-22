@@ -7,8 +7,10 @@ const main = {
   target: "electron-main",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "electron.bundle.js"
+    filename: "electron.bundle.js",
+    devtoolModuleFilenameTemplate: '[absolute-resource-path]'
   },
+  devtool: 'cheap-source-map',
   module: {
     rules: [
       {
