@@ -8,7 +8,8 @@ import {
   faWindowClose
 } from "@fortawesome/free-solid-svg-icons";
 
-const WindowTitle = () => {
+
+const WindowTitle = (): React.FunctionComponentElement<void> => {
   return (
     <div className="nav-bar right-side">
       <Button

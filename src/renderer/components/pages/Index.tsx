@@ -1,11 +1,33 @@
-import * as React from "react";
-import "antd/dist/antd.css";
+import * as React from 'react';
+import 'antd/dist/antd.css';
+import { Layout, Button } from 'antd';
+import { push } from 'connected-react-router';
+import { connect } from 'react-redux';
 
-interface Props {}
-interface State {}
+const mapDispatchToProps = {
+  push,
+};
 
-export default class Index extends React.Component<Props, State> {
-  render() {
-    return <h1>Index</h1>;
+type Props = typeof mapDispatchToProps;
+
+class Index extends React.Component<Props> {
+  public render(): React.ReactElement {
+    return (
+      <Layout>
+        <h1>Index</h1>
+        <Button
+          onClick={(): void => {
+            this.props.push('/test');
+          }}
+        >
+          Test Page
+        </Button>
+      </Layout>
+    );
   }
 }
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Index);

@@ -1,5 +1,5 @@
 import * as navBarActions from '../components/window/NavBar/actions';
-import { changeTheme } from './root-reducer';
+import { changeTheme } from './theme-reducer';
 
 export default {
   navBar: navBarActions,

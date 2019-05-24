@@ -1,15 +1,13 @@
-import React from "react";
-import { Menu, Icon, Layout, Breadcrumb, Button, Switch } from "antd";
-import "./NavBar.scss";
-import SubMenu from "antd/lib/menu/SubMenu";
-import { toggleNavBarExpanded } from "./actions";
-import { connect } from "react-redux";
-import { RootState } from "../../../store/types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGamepad
-} from "@fortawesome/free-solid-svg-icons";
-import { changeTheme } from "../../../store/root-reducer";
+import React from 'react';
+import { Menu, Icon, Layout, Breadcrumb } from 'antd';
+import './NavBar.scss';
+import SubMenu from 'antd/lib/menu/SubMenu';
+import { toggleNavBarExpanded } from './actions';
+import { connect } from 'react-redux';
+import { RootState } from '../../../store/types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGamepad } from '@fortawesome/free-solid-svg-icons';
+import Routes from '../../../Routes';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -19,20 +17,19 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = {
   toggleExpanded: toggleNavBarExpanded,
-  changeTheme: changeTheme
 };
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
-const MainNavBar = ({ expanded, toggleExpanded, changeTheme, theme }: Props) => {
+const MainNavBar = ({ expanded, toggleExpanded, theme }: Props): React.ReactElement => {
   return (
-    <Layout style={{ minHeight: "calc(100vh - 48px)" }}>
-      <Sider collapsible collapsed={expanded} onCollapse={toggleExpanded} theme={theme} >
+    <Layout style={{ minHeight: 'calc(100vh - 48px)' }}>
+      <Sider collapsible collapsed={expanded} onCollapse={toggleExpanded} theme={theme}>
         <div className="logo" />
         <Menu
           theme={theme}
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["gamesSubMenu"]}
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['gamesSubMenu']}
           mode="inline"
           selectable={false}
         >
@@ -40,14 +37,19 @@ const MainNavBar = ({ expanded, toggleExpanded, changeTheme, theme }: Props) => 
             key="gamesSubMenu"
             title={
               <span>
-                <FontAwesomeIcon icon={faGamepad} size="1x" color="white" style={{marginRight: "10px"}} />
+                <FontAwesomeIcon
+                  icon={faGamepad}
+                  size="1x"
+                  color="white"
+                  style={{ marginRight: '10px' }}
+                />
                 <span>My Games</span>
               </span>
             }
           >
             {/* Load in games from store */}
             <Menu.Item key="GameName-1">Risk of Rain 2</Menu.Item>
-            <Menu.Item key="addGame" >
+            <Menu.Item key="addGame">
               <Icon type="plus" />
               <span>Add Game</span>
             </Menu.Item>
@@ -91,8 +93,8 @@ const MainNavBar = ({ expanded, toggleExpanded, changeTheme, theme }: Props) => 
         <Sider collapsible collapsed={false} onCollapse={() => {}} theme={theme}>
           <Menu
             theme={theme}
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["gamesSubMenu"]}
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['gamesSubMenu']}
             mode="inline"
           >
             <SubMenu
@@ -146,19 +148,16 @@ const MainNavBar = ({ expanded, toggleExpanded, changeTheme, theme }: Props) => 
             </Menu.Item>
           </Menu>
         </Sider>
-        <Content style={{ margin: "0 16px" }}>
+        <Content style={{ margin: '0 16px' }}>
           <Layout>
             <Content>
-              <Breadcrumb style={{ margin: "16px 0" }}>
+              <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>User</Breadcrumb.Item>
                 <Breadcrumb.Item>Bill</Breadcrumb.Item>
               </Breadcrumb>
-              <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
-                Bill is a cat.
-              </div>
-              <Switch defaultChecked checked={theme === "dark"} onChange={() => changeTheme(theme === "dark" ? "light" : "dark")} />
+              <Routes />
             </Content>
-            <Footer style={{ textAlign: "center" }}>Disunity</Footer>
+            <Footer style={{ textAlign: 'center' }}>Disunity</Footer>
           </Layout>
         </Content>
       </Layout>

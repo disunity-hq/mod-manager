@@ -3,11 +3,11 @@ import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electro
 import "process";
 
 installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
-  .then(name => console.log(`Added Extension ${name}`))
-  .catch(err => console.error(err));
-  
+  .then((name):void => console.log(`Added Extension ${name}`))
+  .catch((err):void => console.error(err));
+
 let mainWindow: BrowserWindow;
-function createWindow() {
+function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -18,47 +18,46 @@ function createWindow() {
     }
   });
 
-  mainWindow.once("ready-to-show", () => {
+  mainWindow.once("ready-to-show", ():void => {
     if (process.env.NODE_ENV === "development") {
       mainWindow.webContents.openDevTools();
     }
     mainWindow.show();
   });
 
-  let electron_url: string;
 
-  electron_url =
+  const electronUrl =
     process.env.NODE_ENV === "development"
       ? "http://localhost:9000"
       : `file://${__dirname}/index.html`;
-  mainWindow.loadURL(electron_url);
+  mainWindow.loadURL(electronUrl);
 
-  mainWindow.on("closed", () => {
+  mainWindow.on("closed", ():void => {
     mainWindow = null;
   });
 }
 
 app.on("ready", createWindow);
 
-app.on("window-all-closed", () => {
+app.on("window-all-closed", ():void => {
   if (process.platform !== "darwin") app.quit();
 });
 
-app.on("activate", () => {
+app.on("activate", ():void => {
   if (mainWindow === null) createWindow();
 });
 
-ipcMain.on("app-close", () => {
+ipcMain.on("app-close", ():void => {
   app.exit(0);
 });
 
 /**
  * TODO: Make them work for focused window instead of the main one.
  */
-ipcMain.on("app-minimize", () => {
+ipcMain.on("app-minimize", ():void => {
   mainWindow.minimize();
 });
 
-ipcMain.on("app-maximize", () => {
+ipcMain.on("app-maximize", ():void => {
   mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize();
 });

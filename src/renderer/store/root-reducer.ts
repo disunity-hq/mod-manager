@@ -1,18 +1,16 @@
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router'
 
 import navBarReducer from '../components/window/NavBar/reducers';
-import { createReducer, createCustomAction, createStandardAction, Action, ActionType } from 'typesafe-actions';
-import Sider, { SiderTheme } from 'antd/lib/layout/Sider';
+import theme from './theme-reducer';
+import history from './history';
 
-export const changeTheme = createStandardAction('CHANGE_THEME')<SiderTheme>();
-
-const initialState: SiderTheme = "dark";
-
-const theme = createReducer(initialState).handleAction(changeTheme, (_state, action: any) => (action.payload));
 
 const rootReducer = combineReducers({
-    navBar: navBarReducer,
-    theme: theme
+  navBar: navBarReducer,
+  theme: theme,
+  router: connectRouter(history)
 });
 
 export default rootReducer;
+
