@@ -1,6 +1,11 @@
 import { app, BrowserWindow, ipcMain } from "electron";
+import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
 import "process";
 
+installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
+  .then(name => console.log(`Added Extension ${name}`))
+  .catch(err => console.error(err));
+  
 let mainWindow: BrowserWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -32,15 +37,6 @@ function createWindow() {
     mainWindow = null;
   });
 }
-
-app.on("ready", () => {
-  BrowserWindow.addDevToolsExtension(
-    "C:\\Users\\Tristan\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\lmhkpmbekcpmknklioeibfkpmmfibljd\\2.17.0_0"
-  );
-  BrowserWindow.addDevToolsExtension(
-    "C:\\Users\\Tristan\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\3.6.0_0"
-  );
-})
 
 app.on("ready", createWindow);
 
