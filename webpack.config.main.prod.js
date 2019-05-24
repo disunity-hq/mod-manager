@@ -1,33 +1,21 @@
-const path = require("path");
-const webpack = require("webpack");
+const path = require('path');
+const webpack = require('webpack');
+const shared = require('./webpack.config.main');
+
 const main = {
-  entry: "./src/process/index.ts",
-  mode: "production",
-  target: "electron-main",
+  mode: 'production',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "electron.bundle.js"
-  },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        loader: "awesome-typescript-loader",
-        exclude: /node_modules/
-      }
-    ]
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'electron.bundle.js'
   },
   node: {
     __dirname: false
   },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js", ".jsx"]
-  },
   plugins: [
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify("production")
+      'process.env.NODE_ENV': JSON.stringify('production')
     })
   ]
 };
 
-module.exports = main;
+module.exports = { ...shared, ...main };
