@@ -1,8 +1,9 @@
 const path = require('path');
 const { spawn } = require('child_process');
+const merge = require('webpack-merge');
 const shared = require('./webpack.config.renderer');
 
-const renderer = {
+module.exports = merge.smart(shared, {
   mode: 'development',
   devServer: {
     contentBase: path.resolve('./dist'),
@@ -11,12 +12,10 @@ const renderer = {
       spawn('electron', ['./dist/electron.bundle.js'], {
         shell: true,
         env: process.env,
-        stdio: 'inherit'
+        stdio: 'inherit',
       })
         .on('close', code => process.exit(0))
         .on('error', spawnError => console.error(spawnError));
-    }
-  }
-};
-
-module.exports = { ...shared, ...renderer };
+    },
+  },
+});

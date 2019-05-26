@@ -1,25 +1,42 @@
+$navbar-height: 48px;
+
 .nav-bar {
-    -webkit-app-region: drag;
-    margin: 1em;
-    display: flex;
-    flex-direction: row;
+  -webkit-app-region: drag;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
 }
 .left-side {
-    display: flex;
-    flex: 2;
-    justify-content: flex-start;
+  display: flex;
+  flex: 2;
+  justify-content: flex-start;
 }
 .right-side {
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
-    align-items: flex-end;
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
 }
 .app-button {
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0.4em;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0.4em;
+  height: $navbar-height !important;
+}
+.app-button:hover {
+  background-color: rgba($color: white, $alpha: 0.2) !important;
+}
+.app-close-button {
+  border-top-right-radius: 0 !important;
+  svg {
+    transition-duration: 0.3s;
+  }
+}
+.app-close-button:hover {
+  background-color: rgba($color: red, $alpha: 0.6) !important;
+  svg {
+    color: white;
+  }
 }
 .clickable {
-    -webkit-app-region: no-drag;
+  -webkit-app-region: no-drag;
 }

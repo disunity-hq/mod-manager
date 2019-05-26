@@ -1,7 +1,7 @@
 const shared = require('./webpack.config.renderer');
 
-const renderer = {
-  mode: 'production'
-};
+const merge = require('webpack-merge');
 
-module.exports = { ...shared, ...renderer };
+module.exports = merge.smart(shared, {
+  mode: 'production',
+});
