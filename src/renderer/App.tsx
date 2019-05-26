@@ -17,7 +17,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <ConnectedRouter history={history}>
           <Layout style={{ minHeight: '100vh' }}>
-            <Header style={{ height: '48px' }}>
+            <Header style={{ height: '48px', padding: 0 }}>
               <WindowTitle />
             </Header>
             <Content>
