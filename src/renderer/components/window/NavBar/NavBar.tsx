@@ -1,19 +1,18 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React, { ReactElement } from 'react';
-import { Menu, Icon, Layout, Breadcrumb } from 'antd';
+import React from 'react';
+import { Layout, Breadcrumb } from 'antd';
 import './NavBar.scss';
-import { toggleNavBar1Expanded, toggleNavBar2Expanded, toggleNavBar3Expanded } from './actions';
+import { toggleNavBar1Expanded, toggleNavBar2Expanded } from './actions';
 import { connect } from 'react-redux';
 import { RootState } from '../../../store/types';
-import { Link, withRouter, RouteComponentProps, Switch, Route } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Route } from 'react-router-dom';
 import GamesSideBar from './GamesSideBar';
 import MainSideBar from './MainSideBar';
 import { SiderTheme } from 'antd/lib/layout/Sider';
 import { EmptyAC } from 'typesafe-actions';
-import ModsSideBar from './ModsSideBar';
 import { ExpandedState } from './reducers';
 
-const { Content, Footer, Sider } = Layout;
+const { Content, Footer } = Layout;
 
 interface StateProps {
   expanded: ExpandedState;
@@ -32,7 +31,6 @@ const mapStateToProps = (state: RootState): StateProps => {
 const mapDispatchToProps = {
   toggle1Expanded: toggleNavBar1Expanded,
   toggle2Expanded: toggleNavBar2Expanded,
-  toggle3Expanded: toggleNavBar3Expanded,
 };
 
 export interface SideBarProps {
@@ -51,7 +49,6 @@ const MainNavBar = ({
   theme,
   toggle1Expanded,
   toggle2Expanded,
-  toggle3Expanded,
 }: React.PropsWithChildren<NavBarProps>): React.ReactElement => {
   const segments = location.split('/').filter(s => s);
   return (
@@ -77,21 +74,6 @@ const MainNavBar = ({
           />
         )}
       />
-      <Switch>
-        <Route path="/games/browse" render={() => <div />} />
-        <Route
-          path="/games/:game"
-          render={props => (
-            <ModsSideBar
-              theme={theme}
-              collapsed={!expanded.t3}
-              segment={segments[2]}
-              toggleExpanded={toggle3Expanded}
-              {...props}
-            />
-          )}
-        />
-      </Switch>
       <Layout>
         <Content style={{ margin: '0 16px' }}>
           <Layout>
@@ -110,11 +92,9 @@ const MainNavBar = ({
   );
 };
 
-const Nav = withRouter(
-  connect<ReturnType<typeof mapStateToProps>, typeof mapDispatchToProps, RouteComponentProps>(
-    mapStateToProps,
-    mapDispatchToProps
-  )(MainNavBar)
-);
+const Nav = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainNavBar);
 
 export default Nav;
