@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Typography } from 'antd';
 import { ipcRenderer } from '../../../services';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,12 +7,16 @@ import {
   faWindowMaximize,
   faWindowClose,
 } from '@fortawesome/free-solid-svg-icons';
-import ButtonGroup from 'antd/lib/button/button-group';
 
-const WindowTitle = (): React.FunctionComponentElement<void> => {
+const { Title } = Typography;
+
+const WindowTitle = (): React.ReactElement => {
   return (
-    <div className="nav-bar right-side">
-      <ButtonGroup style={{ display: 'flex' }}>
+    <div className="nav-bar">
+      <Title level={3} style={{ color: 'white' }}>
+        Disunity Manager
+      </Title>
+      <Button.Group style={{ display: 'flex' }}>
         <Button
           type="link"
           className="app-button clickable"
@@ -34,7 +38,7 @@ const WindowTitle = (): React.FunctionComponentElement<void> => {
         >
           <FontAwesomeIcon icon={faWindowClose} size="1x" color="red" />
         </Button>
-      </ButtonGroup>
+      </Button.Group>
     </div>
   );
 };

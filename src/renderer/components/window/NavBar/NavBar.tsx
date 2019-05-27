@@ -1,153 +1,98 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import React, { ReactElement } from 'react';
 import { Menu, Icon, Layout, Breadcrumb } from 'antd';
 import './NavBar.scss';
-import SubMenu from 'antd/lib/menu/SubMenu';
-import { toggleNavBarExpanded } from './actions';
+import { toggleNavBar1Expanded, toggleNavBar2Expanded, toggleNavBar3Expanded } from './actions';
 import { connect } from 'react-redux';
 import { RootState } from '../../../store/types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGamepad } from '@fortawesome/free-solid-svg-icons';
-import Routes from '../../../Routes';
+import { Link, withRouter, RouteComponentProps, Switch, Route } from 'react-router-dom';
+import GamesSideBar from './GamesSideBar';
+import MainSideBar from './MainSideBar';
+import { SiderTheme } from 'antd/lib/layout/Sider';
+import { EmptyAC } from 'typesafe-actions';
+import ModsSideBar from './ModsSideBar';
+import { ExpandedState } from './reducers';
 
 const { Content, Footer, Sider } = Layout;
 
-const mapStateToProps = (state: RootState) => {
-  return { expanded: state.navBar.expanded, theme: state.theme };
+interface StateProps {
+  expanded: ExpandedState;
+  theme: SiderTheme;
+  location: string;
+}
+
+const mapStateToProps = (state: RootState): StateProps => {
+  return {
+    expanded: state.navBar.expanded,
+    theme: state.theme,
+    location: state.router.location.pathname,
+  };
 };
 
 const mapDispatchToProps = {
-  toggleExpanded: toggleNavBarExpanded,
+  toggle1Expanded: toggleNavBar1Expanded,
+  toggle2Expanded: toggleNavBar2Expanded,
+  toggle3Expanded: toggleNavBar3Expanded,
 };
 
-type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+export interface SideBarProps {
+  collapsed?: boolean;
+  segment?: string;
+  theme: SiderTheme;
+  toggleExpanded: EmptyAC<string>;
+}
 
-const MainNavBar = ({ expanded, toggleExpanded, theme }: Props): React.ReactElement => {
+type NavBarProps = StateProps & typeof mapDispatchToProps;
+
+const MainNavBar = ({
+  children,
+  location,
+  expanded,
+  theme,
+  toggle1Expanded,
+  toggle2Expanded,
+  toggle3Expanded,
+}: React.PropsWithChildren<NavBarProps>): React.ReactElement => {
+  const segments = location.split('/').filter(s => s);
   return (
     <Layout style={{ minHeight: 'calc(100vh - 48px)' }}>
-      <Sider collapsible collapsed={expanded} onCollapse={toggleExpanded} theme={theme}>
-        <div className="logo" />
-        <Menu
-          theme={theme}
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['gamesSubMenu']}
-          mode="inline"
-          selectable={false}
-        >
-          <SubMenu
-            key="gamesSubMenu"
-            title={
-              <span>
-                <FontAwesomeIcon
-                  icon={faGamepad}
-                  size="1x"
-                  color="white"
-                  style={{ marginRight: '10px' }}
-                />
-                <span>My Games</span>
-              </span>
-            }
-          >
-            {/* Load in games from store */}
-            <Menu.Item key="GameName-1">Risk of Rain 2</Menu.Item>
-            <Menu.Item key="addGame">
-              <Icon type="plus" />
-              <span>Add Game</span>
-            </Menu.Item>
-          </SubMenu>
-          <Menu.Item key="2">
-            <Icon type="search" />
-            <span>Browse Mods</span>
-          </Menu.Item>
-          <SubMenu
-            key="sub1"
-            title={
-              <span>
-                <Icon type="setting" />
-                <span>Settings</span>
-              </span>
-            }
-          >
-            <Menu.Item key="3">Tom</Menu.Item>
-            <Menu.Item key="4">Bill</Menu.Item>
-            <Menu.Item key="5">Alex</Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="sub2"
-            title={
-              <span>
-                <Icon type="team" />
-                <span>Team</span>
-              </span>
-            }
-          >
-            <Menu.Item key="6">Team 1</Menu.Item>
-            <Menu.Item key="8">Team 2</Menu.Item>
-          </SubMenu>
-          <Menu.Item key="9">
-            <Icon type="file" />
-            <span>File</span>
-          </Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout>
-        <Sider collapsible collapsed={false} onCollapse={() => {}} theme={theme}>
-          <Menu
+      <Route
+        render={() => (
+          <MainSideBar
             theme={theme}
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['gamesSubMenu']}
-            mode="inline"
-          >
-            <SubMenu
-              key="gamesSubMenu"
-              title={
-                <span>
-                  <Icon type="folder" />
-                  <span>My Games</span>
-                </span>
-              }
-            >
-              {/* Load in games from store */}
-              <Menu.Item key="GameName-1">Risk of Rain 2</Menu.Item>
-              <Menu.Item key="addGame">
-                <Icon type="plus" />
-                <span>Add Game</span>
-              </Menu.Item>
-            </SubMenu>
-            <Menu.Item key="2">
-              <Icon type="search" />
-              <span>Browse Mods</span>
-            </Menu.Item>
-            <SubMenu
-              key="sub1"
-              title={
-                <span>
-                  <Icon type="setting" />
-                  <span>Settings</span>
-                </span>
-              }
-            >
-              <Menu.Item key="3">Tom</Menu.Item>
-              <Menu.Item key="4">Bill</Menu.Item>
-              <Menu.Item key="5">Alex</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub2"
-              title={
-                <span>
-                  <Icon type="team" />
-                  <span>Team</span>
-                </span>
-              }
-            >
-              <Menu.Item key="6">Team 1</Menu.Item>
-              <Menu.Item key="8">Team 2</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="9">
-              <Icon type="file" />
-              <span>File</span>
-            </Menu.Item>
-          </Menu>
-        </Sider>
+            collapsed={!expanded.t1}
+            segment={segments[0]}
+            toggleExpanded={toggle1Expanded}
+          />
+        )}
+      />
+      <Route
+        path="/games"
+        render={() => (
+          <GamesSideBar
+            theme={theme}
+            collapsed={!expanded.t2}
+            segment={segments[1]}
+            toggleExpanded={toggle2Expanded}
+          />
+        )}
+      />
+      <Switch>
+        <Route path="/games/browse" render={() => <div />} />
+        <Route
+          path="/games/:game"
+          render={props => (
+            <ModsSideBar
+              theme={theme}
+              collapsed={!expanded.t3}
+              segment={segments[2]}
+              toggleExpanded={toggle3Expanded}
+              {...props}
+            />
+          )}
+        />
+      </Switch>
+      <Layout>
         <Content style={{ margin: '0 16px' }}>
           <Layout>
             <Content>
@@ -155,7 +100,7 @@ const MainNavBar = ({ expanded, toggleExpanded, theme }: Props): React.ReactElem
                 <Breadcrumb.Item>User</Breadcrumb.Item>
                 <Breadcrumb.Item>Bill</Breadcrumb.Item>
               </Breadcrumb>
-              <Routes />
+              {children}
             </Content>
             <Footer style={{ textAlign: 'center' }}>Disunity</Footer>
           </Layout>
@@ -165,9 +110,11 @@ const MainNavBar = ({ expanded, toggleExpanded, theme }: Props): React.ReactElem
   );
 };
 
-const Nav = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainNavBar);
+const Nav = withRouter(
+  connect<ReturnType<typeof mapStateToProps>, typeof mapDispatchToProps, RouteComponentProps>(
+    mapStateToProps,
+    mapDispatchToProps
+  )(MainNavBar)
+);
 
 export default Nav;
