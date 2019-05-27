@@ -22,7 +22,9 @@ const TestPage = ({ theme, changeTheme, back }: TestPageProps): ReactElement => 
     <Switch
       defaultChecked
       checked={theme === 'dark'}
-      onChange={() => changeTheme(theme === 'dark' ? 'light' : 'dark')}
+      onChange={(): void => {
+        changeTheme(theme === 'dark' ? 'light' : 'dark');
+      }}
     />
     <Button
       onClick={(): void => {

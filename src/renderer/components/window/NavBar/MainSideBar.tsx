@@ -19,9 +19,7 @@ const MainSideBar = ({
     <Menu theme={theme} selectedKeys={[segment]} mode="inline">
       <Menu.Item key="games">
         <Icon
-          component={(): React.ReactElement => (
-            <FontAwesomeIcon icon={faGamepad} size="1x" color="white" />
-          )}
+          component={(): React.ReactElement => <FontAwesomeIcon icon={faGamepad} size="1x" />}
         />
         <span>My Games</span>
         <Link to="/games" />

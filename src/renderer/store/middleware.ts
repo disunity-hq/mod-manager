@@ -7,8 +7,7 @@ export const navbarClose: Middleware = ({ dispatch, getState }) => next => actio
   const returnValue = next(action);
   if (action.type === "@@router/LOCATION_CHANGE") {
     const state: RootState = getState();
-    const segments = state.router.location.pathname.split('/').filter(s => s);
-    console.log(segments);
+    const segments = state.router.location.pathname.split('/').filter((s): boolean => !!s);
     switch (segments.length) {
       case 0:
         dispatch(setNavBar1Expanded(true));

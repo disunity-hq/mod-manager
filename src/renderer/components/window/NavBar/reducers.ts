@@ -1,6 +1,6 @@
 
 import { toggleNavBar1Expanded, toggleNavBar2Expanded, setNavBar1Expanded, setNavBar2Expanded } from './actions';
-import { createReducer, PayloadAction } from 'typesafe-actions';
+import { createReducer } from 'typesafe-actions';
 import { combineReducers } from 'redux';
 
 export interface ExpandedState {

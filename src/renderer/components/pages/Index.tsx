@@ -1,5 +1,4 @@
 import * as React from 'react';
-import 'antd/dist/antd.css';
 import { Layout, Button } from 'antd';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
@@ -16,6 +15,7 @@ class Index extends React.Component<Props> {
       <Layout>
         <h1>Index</h1>
         <Button
+          type="primary"
           onClick={(): void => {
             this.props.push('/test');
           }}

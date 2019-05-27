@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { Menu, Layout, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { SideBarProps } from './NavBar';
-import { RouteChildrenProps, withRouter } from 'react-router';
+import { RouteChildrenProps } from 'react-router';
 
 const { Sider } = Layout;
 

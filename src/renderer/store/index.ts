@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware, Middleware, StoreEnhancer } from "redux";
+import { createStore, applyMiddleware, Middleware, StoreEnhancer } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from "connected-react-router";
 import withReduxEnhancer from 'addon-redux/enhancer';

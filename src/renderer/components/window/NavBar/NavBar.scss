@@ -6,6 +6,17 @@ $navbar-height: 48px;
   flex-direction: row;
   height: 100%;
   justify-content: space-between;
+  align-items: center;
+  .app-title {
+    display: flex;
+    flex-direction: row;
+    padding-left: 4px;
+
+    .logo {
+      max-height: $navbar-height - 8px;
+      border-radius: 10px;
+    }
+  }
 }
 .left-side {
   display: flex;
@@ -18,22 +29,20 @@ $navbar-height: 48px;
   justify-content: flex-end;
 }
 .app-button {
-  padding-left: 0;
-  padding-right: 0;
   margin-left: 0.4em;
-  height: $navbar-height !important;
+  height: $navbar-height;
 }
 .app-button:hover {
-  background-color: rgba($color: white, $alpha: 0.2) !important;
+  background-color: rgba($color: white, $alpha: 0.2);
 }
 .app-close-button {
-  border-top-right-radius: 0 !important;
+  border-top-right-radius: 0;
   svg {
     transition-duration: 0.3s;
   }
 }
 .app-close-button:hover {
-  background-color: rgba($color: red, $alpha: 0.6) !important;
+  background-color: rgba($color: red, $alpha: 0.6);
   svg {
     color: white;
   }

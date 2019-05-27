@@ -5,7 +5,7 @@ import './NavBar.scss';
 import { toggleNavBar1Expanded, toggleNavBar2Expanded } from './actions';
 import { connect } from 'react-redux';
 import { RootState } from '../../../store/types';
-import { withRouter, RouteComponentProps, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import GamesSideBar from './GamesSideBar';
 import MainSideBar from './MainSideBar';
 import { SiderTheme } from 'antd/lib/layout/Sider';

@@ -1,45 +1,25 @@
-import { Button, Typography } from 'antd';
-import { ipcRenderer } from '../../../services';
+import { Typography, Layout } from 'antd';
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faWindowMinimize,
-  faWindowMaximize,
-  faWindowClose,
-} from '@fortawesome/free-solid-svg-icons';
+
+import image from '../../../../../logo.png';
+import WindowButtons from './WindowButtons';
 
 const { Title } = Typography;
+const { Header } = Layout;
 
 const WindowTitle = (): React.ReactElement => {
   return (
-    <div className="nav-bar">
-      <Title level={3} style={{ color: 'white' }}>
-        Disunity Manager
-      </Title>
-      <Button.Group style={{ display: 'flex' }}>
-        <Button
-          type="link"
-          className="app-button clickable"
-          onClick={() => ipcRenderer.send('app-minimize')}
-        >
-          <FontAwesomeIcon icon={faWindowMinimize} size="1x" color="grey" />
-        </Button>
-        <Button
-          type="link"
-          className="app-button clickable"
-          onClick={() => ipcRenderer.send('app-maximize')}
-        >
-          <FontAwesomeIcon icon={faWindowMaximize} size="1x" color="grey" />
-        </Button>
-        <Button
-          type="link"
-          className="app-button app-close-button clickable"
-          onClick={() => ipcRenderer.send('app-close')}
-        >
-          <FontAwesomeIcon icon={faWindowClose} size="1x" color="red" />
-        </Button>
-      </Button.Group>
-    </div>
+    <Header style={{ position: 'fixed', zIndex: 1, width: '100%', height: 48, padding: 0 }}>
+      <div className="nav-bar">
+        <div className="app-title">
+          <img className="logo" src={image} />
+          <Title level={3} style={{ color: 'white', paddingLeft: '10px', margin: 0 }}>
+            Disunity Manager
+          </Title>
+        </div>
+        <WindowButtons />
+      </div>
+    </Header>
   );
 };
 

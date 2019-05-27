@@ -1,42 +1,56 @@
-const webpack = require("webpack");
-module.exports = {
+const webpack = require('webpack');
+const path = require('path');
+const fs = require('fs');
+
+const themeVariables = require('../ant-theme-vars');
+
+const renderer = {
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: [
-          {
-            loader: "awesome-typescript-loader"
-          },
-          {
-            loader: "react-docgen-typescript-loader"
-          }
-        ],
-        exclude: /node_modules/
+        use: ['awesome-typescript-loader'],
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|jpe?g|gif)$/,
         use: [
           {
-            loader: "file-loader"
-          }
-        ]
+            loader: 'file-loader',
+          },
+        ],
+      },
+      {
+        test: /\.(less)$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              modifyVars: themeVariables,
+              javascriptEnabled: true,
+            },
+          },
+        ],
       },
       {
         test: /\.(css|scss)$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
-      }
-    ]
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   plugins: [
     new webpack.DefinePlugin({
-      "process.env.STORYBOOK_ENV": true
-    })
+      'process.env.STORYBOOK_ENV': true,
+    }),
   ],
   node: {
-    fs: "empty"
+    fs: 'empty',
   },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js", ".jsx"]
-  }
 };
+
+module.exports = renderer;
