@@ -1,6 +1,10 @@
-import { app, BrowserWindow, ipcMain } from "electron";
-import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
-import "process";
+import { app, BrowserWindow, ipcMain, screen } from 'electron';
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS,
+} from 'electron-devtools-installer';
+import 'process';
+import * as windowStateKeeper from 'electron-window-state';
 
 installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
   .then((name): void => console.log(`Added Extension ${name}`))
@@ -8,57 +12,86 @@ installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
 
 let mainWindow: BrowserWindow;
 function createWindow(): void {
+  const mainWindowState = windowStateKeeper({
+    defaultHeight: 800,
+    defaultWidth: 1000,
+  });
+
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
     show: false,
     frame: false,
     webPreferences: {
       webSecurity: false,
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+    },
   });
 
-  mainWindow.once("ready-to-show", (): void => {
-    if (process.env.NODE_ENV === "development") {
-      mainWindow.webContents.openDevTools();
-    }
-    mainWindow.show();
-  });
+  mainWindowState.manage(mainWindow);
 
+  mainWindow.once(
+    'ready-to-show',
+    (): void => {
+      if (process.env.NODE_ENV === 'development') {
+        mainWindow.webContents.openDevTools();
+      }
+      mainWindow.show();
+    }
+  );
 
   const electronUrl =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:9000"
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:9000'
       : `file://${__dirname}/index.html`;
   mainWindow.loadURL(electronUrl);
 
-  mainWindow.on("closed", (): void => {
-    mainWindow = null;
-  });
+  mainWindow.on(
+    'closed',
+    (): void => {
+      mainWindow = null;
+    }
+  );
 }
 
-app.on("ready", createWindow);
+app.on('ready', createWindow);
 
-app.on("window-all-closed", (): void => {
-  if (process.platform !== "darwin") app.quit();
-});
+app.on(
+  'window-all-closed',
+  (): void => {
+    if (process.platform !== 'darwin') app.quit();
+  }
+);
 
-app.on("activate", (): void => {
-  if (mainWindow === null) createWindow();
-});
+app.on(
+  'activate',
+  (): void => {
+    if (mainWindow === null) createWindow();
+  }
+);
 
-ipcMain.on("app-close", (): void => {
-  app.exit(0);
-});
+ipcMain.on(
+  'app-close',
+  (): void => {
+    app.exit(0);
+  }
+);
 
 /**
  * TODO: Make them work for focused window instead of the main one.
  */
-ipcMain.on("app-minimize", (): void => {
-  mainWindow.minimize();
-});
+ipcMain.on(
+  'app-minimize',
+  (): void => {
+    mainWindow.minimize();
+  }
+);
 
-ipcMain.on("app-maximize", (): void => {
-  mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize();
-});
+ipcMain.on(
+  'app-maximize',
+  (): void => {
+    mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize();
+  }
+);
