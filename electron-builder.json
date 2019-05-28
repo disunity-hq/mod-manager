@@ -1,0 +1,10 @@
+{
+  "appId": "com.disunity.manager",
+  "files": ["dist/*", "build/**/*"],
+  "directories": {
+    "output": "release/"
+  },
+  "win": {
+    "icon": "build/logo_256x256.ico"
+  }
+}

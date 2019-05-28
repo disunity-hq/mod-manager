@@ -1,8 +1,6 @@
 {
   "files.exclude": {
     "**/node_modules/": true,
-    "**/build/": true,
-    "**/dist/": true,
     "**/.awcache/": true,
     "**/coverage/": true
   }
