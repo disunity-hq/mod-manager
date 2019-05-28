@@ -10,6 +10,7 @@ import MainSideBar from './MainSideBar';
 import { SiderTheme } from 'antd/lib/layout/Sider';
 import { EmptyAC } from 'typesafe-actions';
 import { ExpandedState } from './reducers';
+import ModsSideBar from './ModsSideBar';
 
 const { Content, Footer } = Layout;
 
@@ -73,19 +74,26 @@ const MainNavBar = ({
           />
         )}
       />
-      <Layout>
-        <Content style={{ margin: '0 16px' }}>
-          <Layout>
-            <Content>
-              <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>User</Breadcrumb.Item>
-                <Breadcrumb.Item>Bill</Breadcrumb.Item>
-              </Breadcrumb>
-              {children}
-            </Content>
-            <Footer style={{ textAlign: 'center' }}>Disunity</Footer>
-          </Layout>
+      {/* <Route
+        path="/games/:game"
+        render={props => (
+          <ModsSideBar
+            theme={theme}
+            segment={segments[1]}
+            toggleExpanded={() => ({ type: '' })}
+            {...props}
+          />
+        )}
+      /> */}
+      <Layout style={{ margin: '0 16px' }}>
+        <Content>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>User</Breadcrumb.Item>
+            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+          </Breadcrumb>
+          {children}
         </Content>
+        <Footer style={{ textAlign: 'center' }}>Disunity</Footer>
       </Layout>
     </Layout>
   );

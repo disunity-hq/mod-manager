@@ -1,11 +1,14 @@
 import React from 'react';
 import { Table } from 'antd';
 import { TableRowSelection } from 'antd/lib/table';
+import { IPackageDetails } from '../../../../models';
+import { setFocusedPackage } from '../ModDetails/actions';
+import { connect } from 'react-redux';
 
-interface ModTableData {
+import * as styles from './ModTable.scss';
+
+interface ModTableData extends IPackageDetails {
   key: string;
-  name: string;
-  author: string;
 }
 
 const data: ModTableData[] = [
@@ -22,11 +25,28 @@ const rowSelection: TableRowSelection<ModTableData> = {
   }),
 };
 
-const ModTable = (): React.ReactElement => (
-  <Table<ModTableData> rowSelection={rowSelection} dataSource={data}>
+const mapDispatchToProps = {
+  openDetails: setFocusedPackage,
+};
+
+type ModTableProps = typeof mapDispatchToProps;
+
+const ModTable = ({ openDetails }: ModTableProps): React.ReactElement => (
+  <Table<ModTableData>
+    rowSelection={rowSelection}
+    dataSource={data}
+    rowClassName={(): string => styles.clickable}
+    onRowClick={(record): void => {
+      console.log(record);
+      openDetails(record);
+    }}
+  >
     <Table.Column<ModTableData> key="name" dataIndex="name" title="Name" />
     <Table.Column<ModTableData> key="author" dataIndex="author" title="Author" />
   </Table>
 );
 
-export default ModTable;
+export default connect(
+  null,
+  mapDispatchToProps
+)(ModTable);

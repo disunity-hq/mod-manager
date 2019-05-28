@@ -17,21 +17,21 @@ const WindowButtons = (): React.ReactElement => (
       className={[styles.appButton, styles.clickable].join(' ')}
       onClick={() => ipcRenderer.send('app-minimize')}
     >
-      <FontAwesomeIcon icon={faWindowMinimize} size="1x" color="grey" />
+      <FontAwesomeIcon icon={faWindowMinimize} size="1x" color="white" />
     </Button>
     <Button
       type="link"
       className={[styles.appButton, styles.clickable].join(' ')}
       onClick={() => ipcRenderer.send('app-maximize')}
     >
-      <FontAwesomeIcon icon={faWindowMaximize} size="1x" color="grey" />
+      <FontAwesomeIcon icon={faWindowMaximize} size="1x" color="white" />
     </Button>
     <Button
       type="link"
       className={[styles.appButton, styles.appCloseButton, styles.clickable].join(' ')}
       onClick={() => ipcRenderer.send('app-close')}
     >
-      <FontAwesomeIcon icon={faWindowClose} size="1x" color="red" />
+      <FontAwesomeIcon icon={faWindowClose} size="1x" color="white" />
     </Button>
   </Button.Group>
 );
