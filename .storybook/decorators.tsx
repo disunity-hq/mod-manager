@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import store from '../src/renderer/store';
 import { RenderFunction } from '@storybook/react';
 import { ConnectedRouter } from 'connected-react-router';
-import history from '../src/renderer/store/history';
+import history from '../src/renderer/history';
 import withReduxCore, { Action } from 'addon-redux/withRedux';
 import addons from '@storybook/addons';
 import { DeepPartial } from 'redux';

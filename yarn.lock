@@ -10410,10 +10410,10 @@ redux-devtools-extension@^2.13.8:
   version "2.13.8"
   resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.8.tgz#37b982688626e5e4993ff87220c9bbb7cd2d96e1"
 
-redux-listener-middleware@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/redux-listener-middleware/-/redux-listener-middleware-0.2.0.tgz#fe80b6a89583d62d1b5e1d386ae18f9f28284b30"
-  integrity sha1-/oC2qJWD1i0bXh04auGPnygoSzA=
+redux-observable@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/redux-observable/-/redux-observable-1.1.0.tgz#323a8fe53e89fdb519be2807b55f08e21c13e6f1"
+  integrity sha512-G0nxgmTZwTK3Z3KoQIL8VQu9n0YCUwEP3wc3zxKQ8zAZm+iYkoZvBqAnBJfLi4EsD1E64KR4s4jFH/dFXpV9Og==
 
 redux@^4.0.0, redux@^4.0.1:
   version "4.0.1"
@@ -10787,6 +10787,13 @@ run-queue@^1.0.0, run-queue@^1.0.3:
 rxjs@^6.1.0, rxjs@^6.4.0:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.1.tgz#f7a005a9386361921b8524f38f54cbf80e5d08f4"
+  dependencies:
+    tslib "^1.9.0"
+
+rxjs@^6.5.2:
+  version "6.5.2"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.2.tgz#2e35ce815cd46d84d02a209fb4e5921e051dbec7"
+  integrity sha512-HUb7j3kvb7p7eCUHE3FqjoDsC1xfZQ4AHFWfTKSpZ+sAhhz5X1WX0ZuUqWbzB2QhSLp3DoLUG+hMdEDKqWo2Zg==
   dependencies:
     tslib "^1.9.0"
 
@@ -11353,13 +11360,6 @@ stealthy-require@^1.1.1:
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
 
-storybook-addon-redux-listener@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/storybook-addon-redux-listener/-/storybook-addon-redux-listener-0.1.7.tgz#a5299dfdb0f183315673a24677b4dd9d50c679a3"
-  integrity sha512-rV/fPS/E00InE7tLjJktGUjd3V30hBpqHdBoNjo9tymjZ+G/iBsmBJAUxt2VkXh9xy4i04letNGri0JowvVF+Q==
-  dependencies:
-    redux-listener-middleware "^0.2.0"
-
 stream-browserify@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-2.0.2.tgz#87521d38a44aa7ee91ce1cd2a47df0cb49dd660b"
@@ -11920,6 +11920,7 @@ ts-loader@^6.0.0:
 tslib@^1.8.1, tslib@^1.9.0:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
+  integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==
 
 tsutils@^3.7.0:
   version "3.10.0"

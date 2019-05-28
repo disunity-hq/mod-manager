@@ -7,7 +7,7 @@ import store from './store';
 import './App.scss';
 import Nav from './components/window/NavBar/NavBar';
 import WindowTitle from './components/window/Title/Title';
-import history from './store/history';
+import history from './history';
 import Routes from './Routes';
 
 const { Content } = Layout;
