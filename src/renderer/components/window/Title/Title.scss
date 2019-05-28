@@ -11,27 +11,14 @@ $navbar-height: 48px;
     display: flex;
     flex-direction: row;
     padding-left: 4px;
-
-    .logo {
-      max-height: $navbar-height - 8px;
-      border-radius: 10px;
-    }
   }
 }
-.left-side {
-  display: flex;
-  flex: 2;
-  justify-content: flex-start;
-}
-.right-side {
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
-}
+
 .app-button {
   margin-left: 0.4em;
   height: $navbar-height;
 }
+
 .app-button:hover {
   background-color: rgba($color: white, $alpha: 0.2);
 }

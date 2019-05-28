@@ -15,6 +15,7 @@
     "dev": "npm-run-all -s webpack_main_dev dev-server",
     "storybook": "start-storybook",
     "build": "npm-run-all -s webpack_main_prod webpack_renderer_prod electron-builder",
+    "build:style-typings": "tsm src/renderer",
     "lint": "npm-run-all -s \"tsc --noEmit\" \"eslint --ext .ts,.tsx src/ {@}\" --",
     "test": "jest"
   },
@@ -48,7 +49,7 @@
     "babel-plugin-require-context-hook": "^1.0.0",
     "connected-react-router": "^6.4.0",
     "cross-env": "^5.2.0",
-    "css-loader": "^2.1.1",
+    "css-loader": "2.0.2",
     "electron": "5.0.2",
     "electron-builder": "^20.39.0",
     "electron-devtools-installer": "^2.2.4",
@@ -77,11 +78,13 @@
     "style-loader": "^0.23.1",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.0.0",
+    "typed-scss-modules": "^0.0.10",
     "typescript": "^3.4.5",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.3.1",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.1",
+    "webpack-shell-plugin": "^0.5.0"
   },
   "build": {
     "appId": "com.disunity.manager",

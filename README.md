@@ -22,7 +22,8 @@ Runs all structrual and interaction tests. Optionally accepts the `---collect-co
 
 # Extra Tools
 ### Storybook
-- Run ```yarn storybook``` to launch storybook.
+- Run ```yarn build:style-typings``` optionally with the `--watch` flag to ensure styles load properly
+- Run ```yarn storybook``` to launch storybook. (Run in a seperate terminal if using the `--watch` flag above)
 
 In order to create a new story, simply create a ```*.stories.tsx``` file in the /src/stories/ folder. You can take a look at the ```test.stories.tsx``` file provided and the [storybook docs](https://storybook.js.org/docs/basics/writing-stories/) for more information.
 

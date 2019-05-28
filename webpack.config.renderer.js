@@ -56,7 +56,7 @@ const renderer = {
               hmr: process.env.NODE_ENV === 'development',
             },
           },
-          'css-loader',
+          'css-loader?modules&camelCase=only',
           'sass-loader',
         ],
       },

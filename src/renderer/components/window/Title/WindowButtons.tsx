@@ -8,25 +8,27 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { ipcRenderer } from '../../../services';
 
+import * as styles from './Title.scss';
+
 const WindowButtons = (): React.ReactElement => (
   <Button.Group style={{ display: 'flex' }}>
     <Button
       type="link"
-      className="app-button clickable"
+      className={[styles.appButton, styles.clickable].join(' ')}
       onClick={() => ipcRenderer.send('app-minimize')}
     >
       <FontAwesomeIcon icon={faWindowMinimize} size="1x" color="grey" />
     </Button>
     <Button
       type="link"
-      className="app-button clickable"
+      className={[styles.appButton, styles.clickable].join(' ')}
       onClick={() => ipcRenderer.send('app-maximize')}
     >
       <FontAwesomeIcon icon={faWindowMaximize} size="1x" color="grey" />
     </Button>
     <Button
       type="link"
-      className="app-button app-close-button clickable"
+      className={[styles.appButton, styles.appCloseButton, styles.clickable].join(' ')}
       onClick={() => ipcRenderer.send('app-close')}
     >
       <FontAwesomeIcon icon={faWindowClose} size="1x" color="red" />

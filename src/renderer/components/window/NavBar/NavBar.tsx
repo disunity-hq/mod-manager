@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React from 'react';
 import { Layout, Breadcrumb } from 'antd';
-import './NavBar.scss';
 import { toggleNavBar1Expanded, toggleNavBar2Expanded } from './actions';
 import { connect } from 'react-redux';
 import { RootState } from '../../../store/types';
