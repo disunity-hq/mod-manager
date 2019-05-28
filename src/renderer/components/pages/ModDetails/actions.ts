@@ -1,5 +1,5 @@
 import { createStandardAction } from 'typesafe-actions';
 
-import { IPackageDetails } from '../../../../models';
+import { PackageDetails } from '../../../../models';
 
-export const setFocusedPackage = createStandardAction('SET_FOCUSED_MOD')<IPackageDetails>();
+export const setFocusedPackage = createStandardAction('SET_FOCUSED_MOD')<PackageDetails>();

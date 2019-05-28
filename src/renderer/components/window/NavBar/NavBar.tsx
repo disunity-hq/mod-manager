@@ -7,7 +7,7 @@ import { RootState } from '../../../store/types';
 import { Route } from 'react-router-dom';
 import GamesSideBar from './GamesSideBar';
 import MainSideBar from './MainSideBar';
-import { SiderTheme } from 'antd/lib/layout/Sider';
+import Sider, { SiderTheme } from 'antd/lib/layout/Sider';
 import { EmptyAC } from 'typesafe-actions';
 import { ExpandedState } from './reducers';
 import ModsSideBar from './ModsSideBar';
@@ -53,6 +53,8 @@ const MainNavBar = ({
   const segments = location.split('/').filter(s => s);
   return (
     <Layout style={{ minHeight: 'calc(100vh - 48px)' }}>
+      {/* <Sider>
+        <Layout style={{ minHeight: 'calc(100vh - 48px)' }}> */}
       <Route
         render={() => (
           <MainSideBar
@@ -78,13 +80,15 @@ const MainNavBar = ({
         path="/games/:game"
         render={props => (
           <ModsSideBar
-            theme={theme}
+          theme={theme}
             segment={segments[1]}
             toggleExpanded={() => ({ type: '' })}
             {...props}
           />
-        )}
-      /> */}
+          )}
+        /> */}
+      {/* </Layout>
+      </Sider> */}
       <Layout style={{ margin: '0 16px' }}>
         <Content>
           <Breadcrumb style={{ margin: '16px 0' }}>

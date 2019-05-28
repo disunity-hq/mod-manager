@@ -1,9 +1,9 @@
 const webpack = require('webpack');
-const WebpackShellPlugin = require('webpack-shell-plugin');
 
 const themeVariables = require('../ant-theme-vars');
 
 const renderer = {
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -33,10 +33,14 @@ const renderer = {
           },
         ],
       },
-      // {
-      //   test: /\.(css|scss)$/,
-      //   use: ['style-loader', 'css-loader?modules&camelCase=only', 'sass-loader'],
-      // },
+      {
+        test: /styles.(css|scss)/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(css|scss)$/,
+        use: ['style-loader', 'css-loader?modules&camelCase=only', 'sass-loader'],
+      },
     ],
   },
   resolve: {
@@ -46,8 +50,6 @@ const renderer = {
     new webpack.DefinePlugin({
       'process.env.STORYBOOK_ENV': true,
     }),
-    new WebpackShellPlugin({ onBuildStart: ['yarn build:style-typings'], dev: false }),
-    new webpack.WatchIgnorePlugin([/\.(css|scss)\.d\.ts$/]),
   ],
   node: {
     fs: 'empty',

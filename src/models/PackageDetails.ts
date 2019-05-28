@@ -1,4 +1,4 @@
-export interface IPackageDetails {
+export interface PackageDetails {
   name: string;
-  author: string;
+  owner: string;
 }

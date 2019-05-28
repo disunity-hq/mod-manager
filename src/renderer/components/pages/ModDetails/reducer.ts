@@ -1,11 +1,11 @@
 import { createReducer } from "typesafe-actions";
-import { IPackageDetails } from "../../../../models";
+import { PackageDetails } from "../../../../models";
 import { setFocusedPackage } from "./actions";
 import { combineReducers } from "redux";
 
-export type FocusedState = IPackageDetails;
+export type FocusedState = PackageDetails;
 
-const initialState: IPackageDetails = null;
+const initialState: PackageDetails = null;
 
 const focused = createReducer(initialState).handleAction(setFocusedPackage,
   (state, action: ReturnType<typeof setFocusedPackage>): FocusedState => action.payload);
