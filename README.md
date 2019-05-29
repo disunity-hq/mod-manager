@@ -1,3 +1,5 @@
+<img src="logo.png" width="256px">
+
 # Disunity Mod Manager
 Disunity Mod Manager for Unity games
 

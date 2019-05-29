@@ -5,6 +5,7 @@ import { Layout, Typography } from 'antd';
 import { connect } from 'react-redux';
 import ModTable from '../ModTable/ModTable';
 import ModDetails from '../ModDetails/ModDetails';
+import { Route } from 'react-router-dom';
 
 const { Content } = Layout;
 
@@ -23,6 +24,7 @@ const PackagePage = ({ focused }: PackagePageProps): React.ReactElement => (
     <Content>
       <ModTable />
       {focused ? <ModDetails /> : null}
+      {/* <Route path="/games/:game/:author/:package" component={ModDetails} /> */}
     </Content>
   </Layout>
 );

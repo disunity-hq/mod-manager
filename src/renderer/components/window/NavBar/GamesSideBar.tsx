@@ -7,7 +7,7 @@ const { Sider } = Layout;
 
 type GamesSideBarProps = SideBarProps;
 
-const GamesSideBar = ({
+export const GamesSideBar = ({
   collapsed: expanded,
   theme,
   toggleExpanded,
@@ -20,10 +20,10 @@ const GamesSideBar = ({
         <span>Browse for Games</span>
         <Link to="/games" />
       </Menu.Item>
-      <Menu.Item key="risk_of_rain_2">
+      <Menu.Item key="risk-of-rain-2">
         <Icon type="file-unknown" />
         <span>Risk of Rain 2</span>
-        <Link to="/games/risk_of_rain_2" />
+        <Link to="/games/risk-of-rain-2" />
       </Menu.Item>
     </Menu>
   </Sider>

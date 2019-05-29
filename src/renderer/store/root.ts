@@ -3,8 +3,8 @@ import { connectRouter } from 'connected-react-router';
 
 import * as packageDetailsActions from '../components/pages/ModDetails/actions';
 import * as navBarActions from '../components/window/NavBar/actions';
-import * as packageTableActions from '../components/pages/ModTable/actions';
-import packageTableEpics from '../components/pages/ModTable/epics';
+import * as packageTableActions from './games/actions';
+import packageTableEpics from './games/epics';
 import navBarReducer from '../components/window/NavBar/reducers';
 import packageDetailsReducer from '../components/pages/ModDetails/reducer';
 import themeReducer from './theme-reducer';

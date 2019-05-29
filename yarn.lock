@@ -1732,6 +1732,11 @@
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
 
+"@types/inflection@^1.5.28":
+  version "1.5.28"
+  resolved "https://registry.yarnpkg.com/@types/inflection/-/inflection-1.5.28.tgz#43d55e0d72cf333a2dffd9c4ec0407455a1b0931"
+  integrity sha1-Q9VeDXLPMzot/9nE7AQHRVobCTE=
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"
@@ -1856,6 +1861,14 @@
 "@types/storybook-addon-jsx@^5.4.3":
   version "5.4.3"
   resolved "https://registry.yarnpkg.com/@types/storybook-addon-jsx/-/storybook-addon-jsx-5.4.3.tgz#677a1a35e6b13ee13b5e3573a250d621309e6a98"
+  dependencies:
+    "@types/react" "*"
+    "@types/storybook__react" "*"
+
+"@types/storybook__addon-info@^4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@types/storybook__addon-info/-/storybook__addon-info-4.1.1.tgz#8b05daa1cae8f6bfa252c9fa5d67aa648dfdf28c"
+  integrity sha512-ugk/BXBBZl0c8xhvIBIVFCF/WLxQhK6Mh8V4st6nbouLXA07SQMLtF1Fcuo2fLdDr1Ao1smABaQUiC2L2UwZwA==
   dependencies:
     "@types/react" "*"
     "@types/storybook__react" "*"
@@ -6386,6 +6399,11 @@ indexes-of@^1.0.1:
 indexof@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
+
+inflection@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/inflection/-/inflection-1.12.0.tgz#a200935656d6f5f6bc4dc7502e1aecb703228416"
+  integrity sha1-ogCTVlbW9fa8TcdQLhrstwMihBY=
 
 inflight@^1.0.4:
   version "1.0.6"

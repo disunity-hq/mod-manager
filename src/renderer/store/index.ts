@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, Middleware, StoreEnhancer } from 'redux';
+import { createStore, applyMiddleware, Middleware, StoreEnhancer, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'connected-react-router';
 import withReduxEnhancer from 'addon-redux/enhancer';
@@ -8,35 +8,37 @@ import { navbarClose } from './middleware';
 import { rootReducer, rootEpic } from './root';
 import { RootState, RootAction } from './types';
 
-const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState, void>();
-
-// configure middlewares
-const middlewares: Middleware[] = [
-  // Uncomment to have redux update the url bar (probably not necessary)
-  routerMiddleware(history),
-  epicMiddleware,
-  navbarClose,
-];
-
-const enhancers: StoreEnhancer[] = [applyMiddleware(...middlewares)];
-
-// OPTIONAL: attach when in Storybook env
-if (process.env.STORYBOOK_ENV) {
-  enhancers.push(withReduxEnhancer);
-}
-
-// compose enhancers
-const enhancer = composeWithDevTools(...enhancers);
+// rexport the root types for easy access
+export * from './root';
 
 // rehydrate state on app start
-const initialState = {};
+const initialState: Partial<RootState> = {};
 
-// create store
-const store = createStore(rootReducer, initialState, enhancer);
+// Export the configure function
+export const configureStore = (state: Partial<RootState> = initialState): Store<RootState> => {
+  const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState, void>();
 
-epicMiddleware.run(rootEpic);
+  // configure middlewares
+  const middlewares: Middleware[] = [
+    // Uncomment to have redux update the url bar (probably not necessary)
+    routerMiddleware(history),
+    epicMiddleware,
+    navbarClose,
+  ];
 
-// export store singleton instance
-export default store;
+  const enhancers: StoreEnhancer[] = [applyMiddleware(...middlewares)];
 
-export * from './root';
+  // OPTIONAL: attach when in Storybook env
+  if (process.env.STORYBOOK_ENV) {
+    enhancers.push(withReduxEnhancer);
+  }
+
+  // compose enhancers
+  const enhancer = composeWithDevTools(...enhancers);
+
+  const store = createStore(rootReducer, state, enhancer);
+
+  epicMiddleware.run(rootEpic);
+
+  return store;
+};

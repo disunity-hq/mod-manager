@@ -8,7 +8,7 @@ const renderer = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: ['awesome-typescript-loader'],
+        use: ['awesome-typescript-loader', 'react-docgen-typescript-loader'],
         exclude: /node_modules/,
       },
       {

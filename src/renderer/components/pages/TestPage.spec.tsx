@@ -2,7 +2,7 @@ import React from 'react';
 import enzyme, { shallow, ShallowWrapper } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import TestPage from '../../src/renderer/components/pages/TestPage';
+import TestPage from './TestPage';
 
 const adapter = new Adapter();
 enzyme.configure({ adapter });

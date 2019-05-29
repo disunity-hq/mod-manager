@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
-import { filter, switchMap, map, catchError, takeUntil } from 'rxjs/operators';
+import { filter, switchMap, map, catchError, takeUntil, delay } from 'rxjs/operators';
 import { Epic, combineEpics } from 'redux-observable';
-import { RootState, RootAction } from '../../../store/types';
+import { RootState, RootAction } from '../types';
 import { isActionOf } from 'typesafe-actions';
 import { fetchPackagesForGameAsync } from './actions';
 
@@ -17,6 +17,7 @@ export const fetchPackagesForGameFlow: Epic<RootAction, RootAction, RootState, v
     switchMap(
       (action): Observable<SuccessType | FailureType> =>
         of([]).pipe(
+          delay(2000), // simulate network lag for now
           map(fetchPackagesForGameAsync.success),
           catchError(err => of(fetchPackagesForGameAsync.failure(err))),
           takeUntil(action$.pipe(filter(isActionOf(fetchPackagesForGameAsync.cancel))))

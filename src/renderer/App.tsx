@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import 'antd/dist/antd.less';
 import { Layout } from 'antd';
 import { ConnectedRouter } from 'connected-react-router';
-import store from './store';
+import { configureStore } from './store';
 import './App.scss';
 import Nav from './components/window/NavBar/NavBar';
 import WindowTitle from './components/window/Title/Title';
@@ -11,6 +11,8 @@ import history from './history';
 import Routes from './Routes';
 
 const { Content } = Layout;
+
+const store = configureStore();
 
 export default class App extends React.Component {
   public render(): React.ReactNode {

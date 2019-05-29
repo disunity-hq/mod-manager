@@ -9,7 +9,7 @@ module.exports = {
   coverageDirectory: 'coverage',
 
   // The root of where Jest will start looking for files
-  rootDir: 'test',
+  rootDir: 'src',
 
   // The glob patterns Jest uses to detect test files
   testMatch: ['**/?(*.)+(spec|test).[tj]s?(x)'],

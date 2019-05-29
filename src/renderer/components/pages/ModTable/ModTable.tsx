@@ -6,6 +6,8 @@ import { setFocusedPackage } from '../ModDetails/actions';
 import { connect } from 'react-redux';
 
 import * as styles from './ModTable.scss';
+import { push } from 'connected-react-router';
+import { RouteChildrenProps, withRouter } from 'react-router';
 
 interface ModTableData extends PackageDetails {
   key: string;
@@ -27,19 +29,20 @@ const rowSelection: TableRowSelection<ModTableData> = {
 
 const mapDispatchToProps = {
   openDetails: setFocusedPackage,
+  navigate: push,
 };
 
-type ModTableProps = typeof mapDispatchToProps;
+type ModTableProps = typeof mapDispatchToProps & RouteChildrenProps<{ game: string }>;
 
-const ModTable = ({ openDetails }: ModTableProps): React.ReactElement => (
+const ModTable = ({ openDetails, navigate, match }: ModTableProps): React.ReactElement => (
   <Table<ModTableData>
     rowSelection={rowSelection}
     dataSource={data}
     rowClassName={(): string => styles.clickable}
     onRow={(record): object => ({
       onClick: (): void => {
-        console.log(record);
         openDetails(record);
+        // navigate(`/games/${match.params.game}/${record.owner}/${record.name}`);
       },
     })}
   >
@@ -48,7 +51,9 @@ const ModTable = ({ openDetails }: ModTableProps): React.ReactElement => (
   </Table>
 );
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(ModTable);
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(ModTable)
+);
