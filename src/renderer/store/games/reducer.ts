@@ -31,8 +31,20 @@ const initialState: GamesState = {
   error: null,
 };
 
-const packagesReducer = createReducer<PackagesData, RootAction>([]);
-const gamesReducer = createReducer<GamesState, RootAction>(initialState);
+export const packagesReducer = createReducer<PackagesData, RootAction>([])
+  .handleAction(
+    fetchPackagesForGameAsync.request,
+    (state, action): PackagesData => ({ ...state, loading: true, error: undefined })
+  )
+  .handleAction(fetchPackagesForGameAsync.success, (state, action): PackagesData => action.payload)
+  .handleAction(
+    fetchPackagesForGameAsync.failure,
+    (state, action): PackagesData => ({ ...state, loading: false, error: action.payload })
+  )
+  .handleAction(
+    fetchPackagesForGameAsync.cancel,
+    (state, action): PackagesData => ({ ...state, loading: false, error: undefined })
+  );
 
 const proxyPackagesReducer = (state: GamesState, action: PayloadAction<any, any>): GamesState => ({
   ...state,
@@ -45,7 +57,7 @@ const proxyPackagesReducer = (state: GamesState, action: PayloadAction<any, any>
   },
 });
 
-gamesReducer
+const gamesReducer = createReducer<GamesState, RootAction>(initialState)
   .handleAction(loadGamesAsync.request, (state): GamesState => ({ ...state, loading: true }))
   .handleAction(
     loadGamesAsync.success,
@@ -69,27 +81,10 @@ gamesReducer
       const { [action.payload]: removed, ...rest } = state.games;
       return { ...state, games: rest };
     }
-  );
-// .handleAction(fetchPackagesForGameAsync.request, proxyPackagesReducer)
-// .handleAction(fetchPackagesForGameAsync.success, proxyPackagesReducer)
-// .handleAction(fetchPackagesForGameAsync.failure, proxyPackagesReducer)
-// .handleAction(fetchPackagesForGameAsync.cancel, proxyPackagesReducer);
-
-packagesReducer.handleAction(
-  fetchPackagesForGameAsync.request,
-  (state, action): PackagesData => ({ ...state, loading: true, error: undefined })
-);
-packagesReducer.handleAction(
-  fetchPackagesForGameAsync.success,
-  (state, action): PackagesData => ({ ...state, loading: true })
-);
-packagesReducer.handleAction(
-  fetchPackagesForGameAsync.failure,
-  (state, action): PackagesData => ({ ...state, loading: true })
-);
-packagesReducer.handleAction(
-  fetchPackagesForGameAsync.cancel,
-  (state, action): PackagesData => ({ ...state, loading: true })
-);
+  )
+  .handleAction(fetchPackagesForGameAsync.request, proxyPackagesReducer)
+  .handleAction(fetchPackagesForGameAsync.success, proxyPackagesReducer)
+  .handleAction(fetchPackagesForGameAsync.failure, proxyPackagesReducer)
+  .handleAction(fetchPackagesForGameAsync.cancel, proxyPackagesReducer);
 
 export default gamesReducer;
