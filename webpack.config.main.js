@@ -11,6 +11,11 @@ const main = {
       {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader',
+        options: {
+          useBabel: true,
+          useCache: true,
+          babelCore: '@babel/core',
+        },
         exclude: /node_modules/,
       },
     ],

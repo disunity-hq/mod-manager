@@ -17,6 +17,11 @@ const renderer = {
       {
         test: /(?!\.stories|\.spec)\.tsx?$/,
         loader: 'awesome-typescript-loader',
+        options: {
+          useBabel: true,
+          useCache: true,
+          babelCore: '@babel/core',
+        },
         exclude: /node_modules/,
       },
       {

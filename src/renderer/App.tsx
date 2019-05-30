@@ -9,12 +9,13 @@ import Nav from './components/window/NavBar/NavBar';
 import WindowTitle from './components/window/Title/Title';
 import history from './history';
 import Routes from './Routes';
+import { hot } from 'react-hot-loader/root';
 
 const { Content } = Layout;
 
 const store = configureStore();
 
-export default class App extends React.Component {
+class App extends React.Component {
   public render(): React.ReactNode {
     return (
       <Provider store={store}>
@@ -32,3 +33,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default hot(App);

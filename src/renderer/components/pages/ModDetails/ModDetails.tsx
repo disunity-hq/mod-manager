@@ -55,7 +55,7 @@ const ModDetails = ({ pkg, match, navigate }: ModDetailsProps): React.ReactEleme
       <Content>
         <Tabs defaultActiveKey={match.params.page} onChange={navigate}>
           <TabPane tab="Details" key="details">
-            <Typography.Text>details</Typography.Text>
+            <Typography.Text>Details</Typography.Text>
           </TabPane>
           <TabPane tab="Settings" key="settings">
             <Typography.Text>settings</Typography.Text>

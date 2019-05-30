@@ -26,9 +26,16 @@ module.exports = merge.smart(shared, {
   plugins: [
     new WebpackShellPlugin({ onBuildStart: ['yarn build:style-typings'], dev: false }),
     new webpack.WatchIgnorePlugin([/\.(css|scss)\.d\.ts$/]),
+    new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
   ],
+
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
+  },
 });

@@ -4,7 +4,7 @@ import installExtension, {
   REDUX_DEVTOOLS,
 } from 'electron-devtools-installer';
 import 'process';
-import * as windowStateKeeper from 'electron-window-state';
+import windowStateKeeper from 'electron-window-state';
 
 installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
   .then((name): void => console.log(`Added Extension ${name}`))
