@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout, Breadcrumb } from 'antd';
 import { toggleNavBar1Expanded, toggleNavBar2Expanded } from './actions';
 import { connect } from 'react-redux';
@@ -11,6 +11,7 @@ import Sider, { SiderTheme } from 'antd/lib/layout/Sider';
 import { EmptyAC } from 'typesafe-actions';
 import { ExpandedState } from './reducers';
 import ModsSideBar from './ModsSideBar';
+import { loadGamesAsync } from '../../../store/games/actions';
 
 const { Content, Footer } = Layout;
 
@@ -51,6 +52,7 @@ const MainNavBar = ({
   toggle2Expanded,
 }: React.PropsWithChildren<NavBarProps>): React.ReactElement => {
   const segments = location.split('/').filter(s => s);
+
   return (
     <Layout style={{ minHeight: 'calc(100vh - 48px)' }}>
       {/* <Sider>

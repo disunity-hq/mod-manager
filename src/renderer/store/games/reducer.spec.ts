@@ -81,13 +81,13 @@ describe('packages reducer', (): void => {
   });
   it('should handle FETCH_GAME_PACKAGES_SUCCESS', (): void => {
     expect(
-      packagesReducer(packagesLoading, { type: 'FETCH_GAME_PACKAGES_SUCCESS', payload: packages })
+      packagesReducer(packagesLoading, { type: 'FETCH_GAME_PACKAGES_SUCCESS', payload: {packages, game: 'risk-of-rain-2'} })
     ).toEqual(packages);
   });
   it('should handle FETCH_GAME_PACKAGES_FAILURE', (): void => {
     const error = new Error('TestError');
     expect(
-      packagesReducer(packagesLoading, { type: 'FETCH_GAME_PACKAGES_FAILURE', payload: error })
+      packagesReducer(packagesLoading, { type: 'FETCH_GAME_PACKAGES_FAILURE', payload: {error, game: 'risk-of-rain-2'} })
     ).toMatchObject<Partial<PackagesData>>({
       loading: false,
       error,

@@ -16,8 +16,11 @@ const renderer = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /(?!\.stories|\.spec)\.tsx?$/,
         loader: 'awesome-typescript-loader',
+        options: {
+          useCache: true,
+        },
         exclude: /node_modules/,
       },
       {

@@ -20,7 +20,7 @@ module.exports = merge.smart(shared, {
         .on('error', spawnError => console.error(spawnError));
     },
   },
-  devtool: 'cheap-source-map',
+  devtool: 'source-map',
   plugins: [
     new WebpackShellPlugin({ onBuildStart: ['yarn build:style-typings'], dev: false }),
     new webpack.WatchIgnorePlugin([/\.(css|scss)\.d\.ts$/]),

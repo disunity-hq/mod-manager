@@ -1,8 +1,8 @@
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { filter, switchMap, map, catchError, takeUntil, delay } from 'rxjs/operators';
 import { Epic, combineEpics } from 'redux-observable';
 import { RootState, RootAction } from '../types';
-import { isActionOf } from 'typesafe-actions';
+import { isActionOf, PayloadAction } from 'typesafe-actions';
 import { fetchPackagesForGameAsync, loadGamesAsync } from './actions';
 
 type FetchFailureType = ReturnType<typeof fetchPackagesForGameAsync['failure']>;
@@ -16,9 +16,16 @@ export const fetchPackagesForGameFlow: Epic<RootAction, RootAction, RootState, v
 ): Observable<FetchSuccessType | FetchFailureType> =>
   action$.pipe(
     filter(isActionOf(fetchPackagesForGameAsync.request)),
+    map(action => {
+      if (action.payload !== 'risk-of-rain-2')
+        return throwError(new Error('Only RoR2 is mocked currently'));
+      return action;
+    }),
     switchMap(
-      (action): Observable<FetchSuccessType | FetchFailureType> =>
-        of([]).pipe(
+      (
+        action: ReturnType<typeof fetchPackagesForGameAsync['request']>
+      ): Observable<FetchSuccessType | FetchFailureType> =>
+        of({ game: action.payload, packages: [{ name: 'Test Package', owner: 'scott' }] }).pipe(
           delay(2000), // simulate network lag for now
           map(fetchPackagesForGameAsync.success),
           catchError(err => of(fetchPackagesForGameAsync.failure(err))),
@@ -35,7 +42,7 @@ export const loadGamesFlow: Epic<RootAction, RootAction, RootState, void> = (
     filter(isActionOf(loadGamesAsync.request)),
     switchMap(
       (action): Observable<LoadSuccessType | LoadFailureType> =>
-        of({}).pipe(
+        of({ 'risk-of-rain-2': { name: 'Risk of Rain 2', packages: [] } }).pipe(
           delay(2000),
           map(loadGamesAsync.success),
           catchError(err => of(loadGamesAsync.failure(err))),
@@ -44,4 +51,4 @@ export const loadGamesFlow: Epic<RootAction, RootAction, RootState, void> = (
     )
   );
 
-export default combineEpics(fetchPackagesForGameFlow);
+export default combineEpics(fetchPackagesForGameFlow, loadGamesFlow);
