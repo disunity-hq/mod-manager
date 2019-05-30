@@ -81,27 +81,27 @@ describe('packages reducer', (): void => {
   });
   it('should handle FETCH_GAME_PACKAGES_SUCCESS', (): void => {
     expect(
-      packagesReducer(packagesLoading, { type: 'FETCH_GAME_PACKAGES_SUCCESS', payload: {packages, game: 'risk-of-rain-2'} })
+      packagesReducer(packagesLoading, {
+        type: 'FETCH_GAME_PACKAGES_SUCCESS',
+        payload: { packages, game: 'risk-of-rain-2' },
+      })
     ).toEqual(packages);
   });
   it('should handle FETCH_GAME_PACKAGES_FAILURE', (): void => {
     const error = new Error('TestError');
-    expect(
-      packagesReducer(packagesLoading, { type: 'FETCH_GAME_PACKAGES_FAILURE', payload: {error, game: 'risk-of-rain-2'} })
-    ).toMatchObject<Partial<PackagesData>>({
-      loading: false,
-      error,
+    const newState = packagesReducer(packagesLoading, {
+      type: 'FETCH_GAME_PACKAGES_FAILURE',
+      payload: { error, game: 'risk-of-rain-2' },
     });
+    expect(newState).toHaveProperty('error', error);
+    expect(newState.loading).toBeFalsy();
   });
   it('should handle FETCH_GAME_PACKAGES_CANCEL', (): void => {
-    expect(
-      packagesReducer(packagesLoading, {
-        type: 'FETCH_GAME_PACKAGES_CANCEL',
-        payload: 'risk-of-rain-2',
-      })
-    ).toMatchObject<Partial<PackagesData>>({
-      loading: false,
-      error: undefined,
+    const newState = packagesReducer(packagesLoading, {
+      type: 'FETCH_GAME_PACKAGES_CANCEL',
+      payload: 'risk-of-rain-2',
     });
+    expect(newState.loading).toBeFalsy();
+    expect(newState.error).toBeFalsy();
   });
 });

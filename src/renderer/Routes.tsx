@@ -10,6 +10,7 @@ export default class Routes extends React.Component {
       <Switch>
         <Redirect path="/" exact to="/games" />
         <Redirect path="/games" exact to="/games/browse" />
+
         <Route path="/games/browse" component={AddGamePage} />
         <Route path="/games/:game" component={PackagePage} />
         <Route path="/settings" component={TestPage} />

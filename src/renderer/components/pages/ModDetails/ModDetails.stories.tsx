@@ -11,6 +11,6 @@ const TestPackages: PackageDetails = {
 };
 
 storiesOf('Disunity|Pages/ModDetails', module)
-  .addDecorator(withRedux<RootState>({}))
   .addDecorator(withRouter)
+  .addDecorator(withRedux<RootState>())
   .add('ModDetails', (): Renderable => <ModDetails />);

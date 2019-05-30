@@ -3,6 +3,7 @@ import { Table } from 'antd';
 import { TableRowSelection } from 'antd/lib/table';
 import { PackageDetails } from '../../../../models';
 import { connect } from 'react-redux';
+import { oc } from 'ts-optchain';
 
 import * as styles from './ModTable.scss';
 import { push } from 'connected-react-router';
@@ -38,7 +39,7 @@ const mapStateToProps = (state: RootState, props: ModTableOwnProps): ModTableSta
   return {
     game: game,
     packages: game && game.packages.map((pkg): ModTableData => ({ ...pkg, key: pkg.name })),
-    loading: game && game.packages.loading,
+    loading: game && game.packages.loading
   };
 };
 

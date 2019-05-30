@@ -25,7 +25,7 @@ export const fetchPackagesForGameFlow: Epic<RootAction, RootAction, RootState, v
       (
         action: ReturnType<typeof fetchPackagesForGameAsync['request']>
       ): Observable<FetchSuccessType | FetchFailureType> =>
-        of({ game: action.payload, packages: [{ name: 'Test Package', owner: 'scott' }] }).pipe(
+        of({ game: action.payload, packages: [{ name: 'TestPackage', owner: 'scott' }] }).pipe(
           delay(2000), // simulate network lag for now
           map(fetchPackagesForGameAsync.success),
           catchError(err => of(fetchPackagesForGameAsync.failure(err))),

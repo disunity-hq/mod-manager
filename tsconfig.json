@@ -10,7 +10,8 @@
     "moduleResolution": "node",
     "allowJs": true,
     "incremental": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "plugins": [{ "transform": "ts-optchain/transform" }]
   },
   "awesomeTypescriptLoaderOptions": {
     "useCache": true

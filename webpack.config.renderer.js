@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
 const themeVariables = require('./ant-theme-vars');
 
 const devMode = process.env.NODE_ENV !== 'production';
@@ -18,9 +17,6 @@ const renderer = {
       {
         test: /(?!\.stories|\.spec)\.tsx?$/,
         loader: 'awesome-typescript-loader',
-        options: {
-          useCache: true,
-        },
         exclude: /node_modules/,
       },
       {
@@ -75,10 +71,6 @@ const renderer = {
   plugins: [
     new HtmlWebpackPlugin({
       template: __dirname + '/src/renderer/index.html',
-    }),
-    new MiniCssExtractPlugin({
-      filename: devMode ? '[name].css' : '[name].[hash].css',
-      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
     }),
   ],
 };

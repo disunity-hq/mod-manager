@@ -47,12 +47,15 @@ export const packagesReducer = createReducer<PackagesData, RootAction>([])
   .handleAction(
     fetchPackagesForGameAsync.failure,
     (state, action): PackagesData => {
-      const newState: PackagesData = [...state];
+      const newState: PackagesData = Array.from(state);
       newState.error = action.payload.error;
       return newState;
     }
   )
-  .handleAction(fetchPackagesForGameAsync.cancel, (state, action): PackagesData => [...state]);
+  .handleAction(
+    fetchPackagesForGameAsync.cancel,
+    (state, action): PackagesData => Array.from(state)
+  );
 
 const proxyPackagesReducer = (
   game: string,

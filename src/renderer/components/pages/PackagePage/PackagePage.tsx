@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 import { connect } from 'react-redux';
 import ModTable from '../ModTable/ModTable';
 import ModDetails from '../ModDetails/ModDetails';
-import { Route } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 
 const { Content } = Layout;
 
@@ -27,7 +27,10 @@ const PackagePage = (): React.ReactElement => {
       <Content>
         <ModTable />
         {/* {focused ? <ModDetails /> : null} */}
-        <Route path="/games/:game/:owner/:name" component={ModDetails} />
+        <Switch>
+          <Redirect exact from="/games/:game/:owner/:name" to="/games/:game/:owner/:name/details" />
+          <Route path="/games/:game/:owner/:name/:page" component={ModDetails} />
+        </Switch>
       </Content>
     </Layout>
   );

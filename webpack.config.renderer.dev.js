@@ -3,6 +3,8 @@ const { spawn } = require('child_process');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const WebpackShellPlugin = require('webpack-shell-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const shared = require('./webpack.config.renderer');
 
 module.exports = merge.smart(shared, {
@@ -24,5 +26,9 @@ module.exports = merge.smart(shared, {
   plugins: [
     new WebpackShellPlugin({ onBuildStart: ['yarn build:style-typings'], dev: false }),
     new webpack.WatchIgnorePlugin([/\.(css|scss)\.d\.ts$/]),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
   ],
 });

@@ -1,39 +1,74 @@
 import React from 'react';
 import { RootState } from '../../../store/types';
 import { PackageDetails } from '../../../../models';
-import { Layout, Typography } from 'antd';
+import { Layout, Typography, Spin, Tabs } from 'antd';
 import { connect } from 'react-redux';
 import { RouteChildrenProps, withRouter } from 'react-router';
 
-const { Content } = Layout;
+import * as styles from './ModDetails.scss';
+import { push } from 'connected-react-router';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface StateProps {}
+const { Content, Header } = Layout;
+const { TabPane } = Tabs;
 
-type ModDetailsOwnProps = RouteChildrenProps<{ game: string; owner: string; name: string }>;
+interface StateProps {
+  pkg: PackageDetails;
+}
+
+type ModDetailsOwnProps = RouteChildrenProps<{
+  game: string;
+  owner: string;
+  name: string;
+  page: string;
+}>;
 
 const mapStateToProps = (state: RootState, { match }: ModDetailsOwnProps): StateProps => {
   const { game, owner, name } = match.params;
   const gameData = state.games.games[game];
-  if (gameData) {
-    return {
-      package: gameData.packages.find((pkg): boolean => pkg.name === name && pkg.owner === owner),
-    };
-  } else {
-    return { package: {} };
-  }
+  const pkg = gameData
+    ? gameData.packages.find((pkg): boolean => pkg.name === name && pkg.owner === owner)
+    : null;
+
+  return { pkg };
 };
 
-type ModDetailsProps = ReturnType<typeof mapStateToProps> & ModDetailsOwnProps;
+const mapDispatchToProps = {
+  navigate: push,
+};
 
-const ModDetails = ({ match }: ModDetailsProps): React.ReactElement => (
-  <Layout>
-    <Content style={{ background: '#fff', minHeight: 600 }}>
-      <Typography.Text>
-        {match.params.name} by <small>{match.params.owner}</small>
-      </Typography.Text>
-    </Content>
-  </Layout>
+type ModDetailsProps = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps &
+  ModDetailsOwnProps;
+
+const ModDetails = ({ pkg, match, navigate }: ModDetailsProps): React.ReactElement => {
+  if (!pkg) {
+    return <Spin />;
+  }
+
+  return (
+    <Layout>
+      <Header>
+        <Typography.Text className={styles.header}>
+          {pkg.name} by <small>{pkg.owner}</small>
+        </Typography.Text>
+      </Header>
+      <Content>
+        <Tabs defaultActiveKey={match.params.page} onChange={navigate}>
+          <TabPane tab="Details" key="details">
+            <Typography.Text>details</Typography.Text>
+          </TabPane>
+          <TabPane tab="Settings" key="settings">
+            <Typography.Text>settings</Typography.Text>
+          </TabPane>
+        </Tabs>
+      </Content>
+    </Layout>
+  );
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ModDetails)
 );
-
-export default withRouter(connect(mapStateToProps)(ModDetails));
