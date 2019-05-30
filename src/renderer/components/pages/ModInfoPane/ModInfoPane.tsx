@@ -5,8 +5,10 @@ import { Layout, Typography, Spin, Tabs } from 'antd';
 import { connect } from 'react-redux';
 import { RouteChildrenProps, withRouter } from 'react-router';
 
-import * as styles from './ModDetails.scss';
+import * as styles from './ModInfoPane.scss';
 import { push } from 'connected-react-router';
+import { hot } from 'react-hot-loader';
+import ModDetails from './ModDetails/ModDetails';
 
 const { Content, Header } = Layout;
 const { TabPane } = Tabs;
@@ -15,14 +17,14 @@ interface StateProps {
   pkg: PackageDetails;
 }
 
-type ModDetailsOwnProps = RouteChildrenProps<{
+type ModInfoPaneOwnProps = RouteChildrenProps<{
   game: string;
   owner: string;
   name: string;
   page: string;
 }>;
 
-const mapStateToProps = (state: RootState, { match }: ModDetailsOwnProps): StateProps => {
+const mapStateToProps = (state: RootState, { match }: ModInfoPaneOwnProps): StateProps => {
   const { game, owner, name } = match.params;
   const gameData = state.games.games[game];
   const pkg = gameData
@@ -36,26 +38,26 @@ const mapDispatchToProps = {
   navigate: push,
 };
 
-type ModDetailsProps = ReturnType<typeof mapStateToProps> &
+type ModInfoPaneProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
-  ModDetailsOwnProps;
+  ModInfoPaneOwnProps;
 
-const ModDetails = ({ pkg, match, navigate }: ModDetailsProps): React.ReactElement => {
+const ModInfoPane = ({ pkg, match, navigate }: ModInfoPaneProps): React.ReactElement => {
   if (!pkg) {
     return <Spin />;
   }
 
   return (
     <Layout>
-      <Header>
-        <Typography.Text className={styles.header}>
+      <Header className={styles.header}>
+        <Typography.Text style={{ whiteSpace: 'pre' }}>
           {pkg.name} by <small>{pkg.owner}</small>
         </Typography.Text>
       </Header>
       <Content>
         <Tabs defaultActiveKey={match.params.page} onChange={navigate}>
           <TabPane tab="Details" key="details">
-            <Typography.Text>Details</Typography.Text>
+            <ModDetails package={pkg} />
           </TabPane>
           <TabPane tab="Settings" key="settings">
             <Typography.Text>settings</Typography.Text>
@@ -66,9 +68,11 @@ const ModDetails = ({ pkg, match, navigate }: ModDetailsProps): React.ReactEleme
   );
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(ModDetails)
+export default hot(module)(
+  withRouter(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )(ModInfoPane)
+  )
 );

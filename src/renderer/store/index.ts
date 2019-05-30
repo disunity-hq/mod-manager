@@ -38,6 +38,16 @@ export const configureStore = (state: Partial<RootState> = initialState): Store<
 
   const store = createStore(rootReducer, state, enhancer);
 
+  if (module.hot) {
+    module.hot.accept(
+      './root',
+      (): void => {
+        const nextRootReducer = require('./root').rootReducer;
+        store.replaceReducer(nextRootReducer);
+      }
+    );
+  }
+
   epicMiddleware.run(rootEpic);
 
   return store;

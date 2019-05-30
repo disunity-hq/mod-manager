@@ -37,9 +37,6 @@ const renderer = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === 'development',
-            },
           },
           'css-loader',
           {
@@ -54,19 +51,6 @@ const renderer = {
       {
         test: /styles.(css|scss)/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.(css|scss)$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === 'development',
-            },
-          },
-          'css-loader?modules&camelCase=only',
-          'sass-loader',
-        ],
       },
     ],
   },

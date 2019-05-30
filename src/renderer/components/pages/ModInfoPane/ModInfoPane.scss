@@ -1,0 +1,13 @@
+@import '../../../mixins.scss';
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  %headings {
+    color: white;
+    margin: 0px;
+  }
+}

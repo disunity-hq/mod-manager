@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Disunity|Pages/ModDetails ModDetails 1`] = `
+exports[`Storyshots Disunity|Pages/ModInfoPane ModInfoPane 1`] = `
 <div>
   <div
     style={
@@ -130,7 +130,7 @@ exports[`Storyshots Disunity|Pages/ModDetails ModDetails 1`] = `
               }
             }
           >
-            Disunity|Pages/ModDetails
+            Disunity|Pages/ModInfoPane
           </h1>
           <h2
             style={
@@ -142,7 +142,7 @@ exports[`Storyshots Disunity|Pages/ModDetails ModDetails 1`] = `
               }
             }
           >
-            ModDetails
+            ModInfoPane
           </h2>
         </div>
         
@@ -593,7 +593,7 @@ exports[`Storyshots Disunity|Pages/ModDetails ModDetails 1`] = `
                       }
                     >
                       &lt;
-                      withRouter(Connect(ModDetails))
+                      withRouter(Connect(ModInfoPane))
                     </span>
                     <span />
                     <span
@@ -938,7 +938,7 @@ exports[`Storyshots Disunity|Pages/ModDetails ModDetails 1`] = `
               }
             >
               "
-              withRouter(Connect(ModDetails))
+              withRouter(Connect(ModInfoPane))
               " Component
             </h3>
             <table>

@@ -3,10 +3,12 @@ import React from 'react';
 
 import image from '../../../../../logo.png';
 import WindowButtons from './WindowButtons';
-import styles from './Title.scss';
+import * as styles from './Title.scss';
 
 const { Title } = Typography;
 const { Header } = Layout;
+
+console.log(styles);
 
 const WindowTitle = (): React.ReactElement => {
   return (

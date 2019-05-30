@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import { connect } from 'react-redux';
 import ModTable from '../ModTable/ModTable';
-import ModDetails from '../ModDetails/ModDetails';
+import ModInfoPane from '../ModInfoPane/ModInfoPane';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 const { Content } = Layout;
@@ -26,14 +26,13 @@ const PackagePage = (): React.ReactElement => {
     <Layout>
       <Content>
         <ModTable />
-        {/* {focused ? <ModDetails /> : null} */}
         <Switch>
           <Redirect exact from="/games/:game/:owner/:name" to="/games/:game/:owner/:name/details" />
-          <Route path="/games/:game/:owner/:name/:page" component={ModDetails} />
+          <Route path="/games/:game/:owner/:name/:page" component={ModInfoPane} />
         </Switch>
       </Content>
     </Layout>
   );
 };
 
-export default connect(null)(PackagePage);
+export default PackagePage;

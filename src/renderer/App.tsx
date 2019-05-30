@@ -9,7 +9,7 @@ import Nav from './components/window/NavBar/NavBar';
 import WindowTitle from './components/window/Title/Title';
 import history from './history';
 import Routes from './Routes';
-import { hot } from 'react-hot-loader/root';
+import { hot } from 'react-hot-loader';
 
 const { Content } = Layout;
 
@@ -34,4 +34,4 @@ class App extends React.Component {
   }
 }
 
-export default hot(App);
+export default hot(module)(App);
