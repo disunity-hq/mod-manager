@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
 import { TableRowSelection } from 'antd/lib/table';
-import { PackageDetails } from '../../../../models';
+import { PackageDetails, Loadable } from '../../../../models';
 import { connect } from 'react-redux';
 
 import * as styles from './ModTable.scss';
 import { push } from 'connected-react-router';
 import { RouteChildrenProps, withRouter } from 'react-router';
 import { RootState } from '../../../store/types';
-import { fetchPackagesForGameAsync } from '../../../store/games/actions';
 import { GameData } from '../../../store/games/reducer';
+import { fetchPackagesAsync } from '../../../store/packages/actions';
 
 interface ModTableData extends PackageDetails {
   key: string;
@@ -34,17 +34,19 @@ type ModTableOwnProps = RouteChildrenProps<{ game: string }>;
 
 const mapStateToProps = (state: RootState, props: ModTableOwnProps): ModTableStateProps => {
   const game = state.games.games[props.match.params.game];
-  console.log(game);
+  const packages = game && state.packages[game.id];
   return {
     game: game,
-    packages: game && game.packages.map((pkg): ModTableData => ({ ...pkg, key: pkg.name })),
-    loading: game && game.packages.loading,
+    packages: Array.isArray(packages)
+      ? packages.map((pkg): ModTableData => ({ ...pkg, key: pkg.name }))
+      : null,
+    loading: packages && (packages as Loadable).loading,
   };
 };
 
 const mapDispatchToProps = {
   navigate: push,
-  fetchPackages: fetchPackagesForGameAsync.request,
+  fetchPackages: fetchPackagesAsync.request,
 };
 
 type ModTableProps = typeof mapDispatchToProps & ModTableStateProps & ModTableOwnProps;
@@ -61,7 +63,7 @@ const ModTable = ({
     (): void => {
       console.log(packages, loading);
       if (game && !loading && (!packages || packages.length === 0))
-        fetchPackages(match.params.game);
+        fetchPackages(null, match.params.game);
     }
   );
   return (

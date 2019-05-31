@@ -62,6 +62,12 @@ const renderer = {
       template: __dirname + '/src/renderer/index.html',
     }),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      name: 'vender',
+    },
+  },
 };
 
 module.exports = renderer;

@@ -27,9 +27,11 @@ type ModInfoPaneOwnProps = RouteChildrenProps<{
 const mapStateToProps = (state: RootState, { match }: ModInfoPaneOwnProps): StateProps => {
   const { game, owner, name } = match.params;
   const gameData = state.games.games[game];
-  const pkg = gameData
-    ? gameData.packages.find((pkg): boolean => pkg.name === name && pkg.owner === owner)
-    : null;
+  const packages = gameData && state.packages[gameData.id];
+  const pkg =
+    packages && Array.isArray(packages)
+      ? packages.find((pkg): boolean => pkg.name === name && pkg.owner === owner)
+      : null;
 
   return { pkg };
 };
@@ -50,9 +52,9 @@ const ModInfoPane = ({ pkg, match, navigate }: ModInfoPaneProps): React.ReactEle
   return (
     <Layout>
       <Header className={styles.header}>
-        <Typography.Text style={{ whiteSpace: 'pre' }}>
+        <Typography.Title level={3} style={{ whiteSpace: 'pre' }}>
           {pkg.name} by <small>{pkg.owner}</small>
-        </Typography.Text>
+        </Typography.Title>
       </Header>
       <Content>
         <Tabs defaultActiveKey={match.params.page} onChange={navigate}>

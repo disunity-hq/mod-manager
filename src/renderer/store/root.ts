@@ -3,6 +3,11 @@ import { connectRouter } from 'connected-react-router';
 
 import * as navBarActions from '../components/window/NavBar/actions';
 import * as gamesActions from './games/actions';
+import {
+  actions as packagesActions,
+  reducer as packagesReducer,
+  epics as packagesEpics,
+} from './packages';
 import packageTableEpics from './games/epics';
 import navBarReducer from '../components/window/NavBar/reducers';
 import themeReducer from './theme-reducer';
@@ -15,6 +20,7 @@ export const rootAction = {
   navBar: navBarActions,
   theme: changeTheme,
   games: gamesActions,
+  packages: packagesActions,
 };
 
 export const rootReducer = combineReducers({
@@ -22,6 +28,7 @@ export const rootReducer = combineReducers({
   theme: themeReducer,
   router: connectRouter(history),
   games: gamesReducer,
+  packages: packagesReducer,
 });
 
-export const rootEpic = combineEpics(packageTableEpics);
+export const rootEpic = combineEpics(packageTableEpics, packagesEpics);

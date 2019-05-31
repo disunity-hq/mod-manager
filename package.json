@@ -16,7 +16,7 @@
     "storybook": "start-storybook",
     "build": "npm-run-all -s webpack_main_prod webpack_renderer_prod electron-builder",
     "build:style-typings": "tsm src/renderer",
-    "lint": "npm-run-all -s \"tsc --noEmit\" \"eslint --ext .ts,.tsx src/ {@}\" --",
+    "lint": "npm-run-all -s \"tsc --noEmit\" \"eslint '--ext' '.ts,.tsx'  src/ {@}\" --",
     "test": "jest"
   },
   "devDependencies": {

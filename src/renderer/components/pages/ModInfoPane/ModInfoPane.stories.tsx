@@ -25,7 +25,7 @@ storiesOf('Disunity|Pages/ModInfoPane', module)
         games: {
           'risk-of-rain-2': {
             name: 'Risk of Rain 2',
-            packages: [testPackage],
+            id: 'risk-of-rain-2',
           },
         },
       },

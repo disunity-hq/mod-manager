@@ -50,7 +50,7 @@ module.exports = merge.smart(shared, {
         .on('error', spawnError => console.error(spawnError));
     },
   },
-  devtool: 'source-map',
+  devtool: 'cheap-module-eval-source-map',
   plugins: [
     new webpack.WatchIgnorePlugin([/\.(css|scss)\.d\.ts$/]),
     new MiniCssExtractPlugin({
