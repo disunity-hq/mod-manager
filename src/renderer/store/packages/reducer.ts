@@ -22,7 +22,7 @@ const packagesReducer = createReducer<PackagesData, RootAction>({})
   )
   .handleAction(
     fetchPackagesAsync.cancel,
-    (state, action): PackagesData => ({ ...state }) //TODO decide how to react to this
+    (state, action): PackagesData => ({ ...state, [action.meta]: { loading: false } }) //TODO decide how to react to this
   );
 
 export default packagesReducer;

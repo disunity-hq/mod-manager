@@ -1,5 +1,5 @@
 import { createAsyncAction, createStandardAction } from 'typesafe-actions';
-import { GameData, GamesMap } from './reducer';
+import { GamesMap, GameData } from '../../../models';
 
 export const loadGamesAsync = createAsyncAction(
   'LOAD_GAMES_REQUEST',

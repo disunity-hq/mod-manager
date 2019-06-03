@@ -19,7 +19,8 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-console": "warn"
+    "no-console": "warn",
+    "@typescript-eslint/explicit-function-return-type": "off"
   },
   "settings": {
     "react": {

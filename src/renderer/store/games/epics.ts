@@ -4,14 +4,14 @@ import { Epic, combineEpics } from 'redux-observable';
 import { RootState, RootAction } from '../types';
 import { isActionOf, PayloadAction } from 'typesafe-actions';
 import { loadGamesAsync } from './actions';
-import { GamesMap } from './reducer';
+import { GamesMap } from '../../../models';
 
 type LoadFailureType = ReturnType<typeof loadGamesAsync['failure']>;
 type LoadSuccessType = ReturnType<typeof loadGamesAsync['success']>;
 
 const mockData: GamesMap = {
-  'risk-of-rain-2': {
-    id: 'risk-of-rain-2',
+  'risk-of-rain-2_1234': {
+    id: 'risk-of-rain-2_1234',
     name: 'Risk of Rain 2',
   },
 };

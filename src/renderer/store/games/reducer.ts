@@ -1,16 +1,7 @@
 import { createReducer } from 'typesafe-actions';
-import { PackageDetails, Loadable } from '../../../models';
+import { PackageDetails, Loadable, GameData, GamesMap } from '../../../models';
 import { loadGamesAsync, addGameData, removeGameData } from './actions';
 import { RootAction } from '../types';
-
-export interface GameData {
-  name: string;
-  id: string;
-}
-
-export interface GamesMap {
-  [id: string]: GameData;
-}
 
 export interface GamesState extends Loadable {
   games: GamesMap;

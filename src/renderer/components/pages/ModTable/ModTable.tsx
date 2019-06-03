@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { TableRowSelection } from 'antd/lib/table';
-import { PackageDetails, Loadable } from '../../../../models';
+import { PackageDetails, Loadable, GameData } from '../../../../models';
 import { connect } from 'react-redux';
 
 import * as styles from './ModTable.scss';
 import { push } from 'connected-react-router';
 import { RouteChildrenProps, withRouter } from 'react-router';
 import { RootState } from '../../../store/types';
-import { GameData } from '../../../store/games/reducer';
 import { fetchPackagesAsync } from '../../../store/packages/actions';
 
 interface ModTableData extends PackageDetails {
@@ -59,13 +58,13 @@ const ModTable = ({
   game,
   loading,
 }: ModTableProps): React.ReactElement => {
-  useEffect(
-    (): void => {
-      console.log(packages, loading);
-      if (game && !loading && (!packages || packages.length === 0))
-        fetchPackages(null, match.params.game);
-    }
-  );
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect((): void => {
+    if (!loaded && game && !loading && (!packages || packages.length === 0))
+      fetchPackages(null, match.params.game);
+    setLoaded(true);
+  }, [loaded]);
   return (
     <Table<ModTableData>
       rowSelection={rowSelection}

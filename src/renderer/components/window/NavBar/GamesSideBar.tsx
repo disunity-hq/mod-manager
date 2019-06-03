@@ -5,7 +5,7 @@ import { SideBarProps } from './NavBar';
 import { RootState } from '../../../store/types';
 import { loadGamesAsync } from '../../../store/games/actions';
 import { connect } from 'react-redux';
-import { GamesMap, GameData } from '../../../store/games/reducer';
+import { GamesMap } from '../../../../models';
 
 const { Sider } = Layout;
 
