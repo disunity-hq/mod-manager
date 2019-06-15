@@ -1,0 +1,21 @@
+:global(.page-content) {
+  background: #fff;
+  border-radius: 4px;
+  padding: 24px;
+}
+
+:global(.flex) {
+  display: flex;
+}
+
+:global(.flex.row) {
+  flex-direction: row;
+}
+
+:global(.flex.col) {
+  flex-direction: column;
+}
+
+:global(.flex.space) {
+  justify-content: space-between;
+}

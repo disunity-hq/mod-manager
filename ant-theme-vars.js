@@ -1,3 +1,3 @@
 module.exports = {
-  '@layout-header-background': '#0268c7',
+  '@layout-header-background': '#1890ff',
 };

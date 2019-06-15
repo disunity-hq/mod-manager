@@ -48,10 +48,6 @@ const renderer = {
           },
         ],
       },
-      {
-        test: /styles.(css|scss)/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
     ],
   },
   resolve: {
