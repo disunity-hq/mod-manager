@@ -10,8 +10,7 @@ import MainSideBar from './MainSideBar';
 import Sider, { SiderTheme } from 'antd/lib/layout/Sider';
 import { EmptyAC } from 'typesafe-actions';
 import { ExpandedState } from './reducers';
-import ModsSideBar from './ModsSideBar';
-import { loadGamesAsync } from '../../../store/games/actions';
+import * as styles from './NavBar.scss';
 
 const { Content, Footer } = Layout;
 
@@ -54,9 +53,7 @@ const MainNavBar = ({
   const segments = location.split('/').filter(s => s);
 
   return (
-    <Layout style={{ minHeight: 'calc(100vh - 48px)' }}>
-      {/* <Sider>
-        <Layout style={{ minHeight: 'calc(100vh - 48px)' }}> */}
+    <Layout className={styles.content}>
       <Route
         render={() => (
           <MainSideBar

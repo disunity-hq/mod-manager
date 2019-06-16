@@ -5,23 +5,16 @@ import image from '../../../../../logo.png';
 import WindowButtons from './WindowButtons';
 import * as styles from './Title.scss';
 
-const { Title } = Typography;
+const { Text } = Typography;
 const { Header } = Layout;
-
-console.log(styles);
 
 const WindowTitle = (): React.ReactElement => {
   return (
-    <Header style={{ position: 'fixed', zIndex: 1, width: '100%', height: 48, padding: 0 }}>
-      <div className={styles.navBar}>
-        <div className={styles.appTitle}>
-          <Avatar shape="square" size="default" src={image} />
-          <Title level={3} style={{ color: 'white', paddingLeft: '10px', margin: 0 }}>
-            Disunity Manager
-          </Title>
-        </div>
-        <WindowButtons />
-      </div>
+    <Header className={styles.navBar}>
+      <img src={image} className={styles.logo} />
+      <Text className={styles.title}>Disunity.io</Text>
+      <Text>Mod Manager</Text>
+      <WindowButtons className={styles.appButtons} />
     </Header>
   );
 };

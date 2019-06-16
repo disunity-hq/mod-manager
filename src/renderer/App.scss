@@ -1,1 +1,5 @@
-// @import '~antd/dist/antd.scss';
+@import './variables.scss';
+
+.content {
+  margin-top: $navbar-height;
+}

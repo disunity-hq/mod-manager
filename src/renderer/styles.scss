@@ -19,3 +19,7 @@
 :global(.flex.space) {
   justify-content: space-between;
 }
+
+:global(body) {
+  background: transparent;
+}

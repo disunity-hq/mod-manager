@@ -61,7 +61,7 @@ const renderer = {
   optimization: {
     splitChunks: {
       chunks: 'all',
-      name: 'vender',
+      name: 'vendor',
     },
   },
 };

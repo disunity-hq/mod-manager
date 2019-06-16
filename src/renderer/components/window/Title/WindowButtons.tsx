@@ -10,8 +10,12 @@ import { ipcRenderer } from '../../../services';
 
 import * as styles from './Title.scss';
 
-const WindowButtons = (): React.ReactElement => (
-  <Button.Group style={{ display: 'flex' }}>
+export interface WindowButtonProps {
+  className?: string;
+}
+
+const WindowButtons = ({ className }: WindowButtonProps): React.ReactElement => (
+  <Button.Group style={{ display: 'flex' }} className={className}>
     <Button
       type="link"
       className={[styles.appButton, styles.clickable].join(' ')}
