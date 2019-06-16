@@ -1,11 +1,11 @@
 import * as path from 'path';
 import React, { useState, useEffect } from 'react';
 import { Layout, Typography, Button, Spin, Divider, Collapse, Progress, Select } from 'antd';
-import { dialog, remote } from '../../../services';
+import { dialog, remote, ipcRenderer } from '../../../services';
 import * as styles from './AddGame.scss';
 import { hot } from 'react-hot-loader';
 import CollapsibleLog, { StepInfo } from '../../window/CollapisbleLog/CollapsibleLog';
-import { TargetInfo } from '../../../../models/TargetInfo';
+import { TargetInfo, TargetHashes } from '../../../../models/TargetInfo';
 
 const { Content } = Layout;
 
@@ -25,18 +25,29 @@ const AddGame = (): React.ReactElement => {
     setSteps(prevSteps => [...prevSteps, stepInfo]);
   };
 
+  const onHashResults = (event: Electron.Event, hashes: TargetHashes) => {
+    addStep({ key: 'fetching', name: 'Fetching Game Info' });
+    setTimeout(() => {
+      addStep({ key: 'done', name: 'Done' });
+      setTargetInfo({ name: '<Insert Target Name Here>', disunityVersions: ['2', '1'], hashes });
+    }, 2000);
+  };
+  const onHashingError = (event: Electron.Event, error: any) => {
+    console.error(error);
+  };
+
   useEffect(() => {
     if (selected) {
       setSteps([{ key: 'hashing', name: 'Calculating Hashes' }]);
       setTargetInfo(undefined);
-      setTimeout(() => {
-        addStep({ key: 'fetching', name: 'Fetching Game Info' });
-      }, 2000);
-      setTimeout(() => {
-        addStep({ key: 'done', name: 'Done' });
-        setTargetInfo({ name: '<Insert Target Name Here>', disunityVersions: ['2', '1'] });
-      }, 4000);
+      ipcRenderer.send('calc-target-hashes', selected);
+      ipcRenderer.on('target-hash-results', onHashResults);
+      ipcRenderer.on('target-hashing-error', onHashingError);
     }
+    return () => {
+      ipcRenderer.removeListener('target-hash-results', onHashResults);
+      ipcRenderer.removeListener('target-hashing-error', onHashingError);
+    };
   }, [selected]);
 
   return (
@@ -72,6 +83,7 @@ const AddGame = (): React.ReactElement => {
               <React.Fragment>
                 <Divider />
                 <Title level={3}>{targetInfo.name}</Title>
+                <Text>Hash: {targetInfo.hashes.executable}</Text>
                 <span className="flex">
                   <Text>Available Versions:</Text>
                   <Select style={{ flexGrow: 1 }} defaultValue={targetInfo.disunityVersions[0]}>

@@ -112,6 +112,7 @@
     "react-redux": "^6.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
+    "regenerator-runtime": "^0.13.2",
     "typesafe-actions": "^4.3.0"
   }
 }
