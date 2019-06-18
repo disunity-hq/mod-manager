@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf, Renderable } from '@storybook/react';
 import ModInfoPane from './ModInfoPane';
 import { withRedux, withRouter } from '../../../../../.storybook/decorators';
-import { RootState } from '../../../store/types';
+import { RootState } from '../../../../shared/store/types';
 import { PackageDetails } from '../../../../models';
 import { Route } from 'react-router-dom';
 

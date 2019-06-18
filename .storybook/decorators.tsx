@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { configureStore } from '../src/renderer/store';
+import { configureStore } from '../src/shared/store';
 import { RenderFunction, StoryDecorator } from '@storybook/react';
 import { ConnectedRouter } from 'connected-react-router';
 import history from '../src/renderer/history';

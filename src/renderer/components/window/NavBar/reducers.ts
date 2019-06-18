@@ -6,7 +6,7 @@ import {
 } from './actions';
 import { createReducer } from 'typesafe-actions';
 import { combineReducers } from 'redux';
-import { RootAction } from '../../../store/types';
+import { RootAction } from '../../../../shared/store/types';
 
 export interface ExpandedState {
   t1: boolean;

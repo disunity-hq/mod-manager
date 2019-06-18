@@ -5,8 +5,8 @@ import { filter, map, switchMap, delay, catchError, takeUntil, tap } from 'rxjs/
 import { isActionOf } from 'typesafe-actions';
 import { fetchPackagesAsync } from './actions';
 import { ActionCreator } from 'typesafe-actions/dist/is-action-of';
-import { packages } from '../../../shared/api';
-import * as mockPackages from '../../../shared/api/__mocks__/packages';
+import { packages } from '../../api';
+import * as mockPackages from '../../api/__mocks__/packages';
 
 type FetchFailureType = ReturnType<typeof fetchPackagesAsync['failure']>;
 type FetchSuccessType = ReturnType<typeof fetchPackagesAsync['success']>;

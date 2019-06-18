@@ -2,8 +2,8 @@ import React, { ReactElement, useEffect } from 'react';
 import { Menu, Layout, Icon, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import { SideBarProps } from './NavBar';
-import { RootState } from '../../../store/types';
-import { loadGamesAsync } from '../../../store/games/actions';
+import { RootState } from '../../../../shared/store/types';
+import { loadGamesAsync } from '../../../../shared/store/games/actions';
 import { connect } from 'react-redux';
 import { GamesMap } from '../../../../models';
 

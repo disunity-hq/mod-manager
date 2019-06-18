@@ -1,5 +1,5 @@
 import { StateType, ActionType } from 'typesafe-actions';
-import { rootAction, rootReducer, configureStore } from './';
+import { rootAction, rootReducer, configureStore } from '.';
 
 export type Store = StateType<ReturnType<typeof configureStore>>;
 

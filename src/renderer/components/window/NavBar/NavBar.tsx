@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Layout, Breadcrumb } from 'antd';
 import { toggleNavBar1Expanded, toggleNavBar2Expanded } from './actions';
 import { connect } from 'react-redux';
-import { RootState } from '../../../store/types';
+import { RootState } from '../../../../shared/store/types';
 import { Route } from 'react-router-dom';
 import GamesSideBar from './GamesSideBar';
 import MainSideBar from './MainSideBar';

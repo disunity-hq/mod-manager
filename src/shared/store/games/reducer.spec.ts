@@ -1,5 +1,5 @@
 import reducer, { GamesState } from './reducer';
-import { deepFreeze } from '../../../shared/helpers';
+import { deepFreeze } from '../../helpers';
 import { GameData, GamesMap } from '../../../models';
 
 const ror2: GameData = { name: 'Risk of Rain 2', id: 'risk-of-rain-2' };

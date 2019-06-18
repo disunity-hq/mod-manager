@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'connected-react-router';
 import withReduxEnhancer from 'addon-redux/enhancer';
 import { createEpicMiddleware } from 'redux-observable';
-import history from '../history';
+import history from '../../renderer/history';
 import { navbarClose } from './middleware';
 import { rootReducer, rootEpic } from './root';
 import { RootState, RootAction } from './types';

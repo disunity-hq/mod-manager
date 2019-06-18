@@ -1,5 +1,5 @@
 import React from 'react';
-import { RootState } from '../../../store/types';
+import { RootState } from '../../../../shared/store/types';
 import { PackageDetails } from '../../../../models';
 import { Layout, Typography, Spin, Tabs } from 'antd';
 import { connect } from 'react-redux';

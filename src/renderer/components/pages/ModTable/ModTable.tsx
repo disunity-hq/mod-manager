@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import * as styles from './ModTable.scss';
 import { push } from 'connected-react-router';
 import { RouteChildrenProps, withRouter } from 'react-router';
-import { RootState } from '../../../store/types';
-import { fetchPackagesAsync } from '../../../store/packages/actions';
+import { RootState } from '../../../../shared/store/types';
+import { fetchPackagesAsync } from '../../../../shared/store/packages/actions';
 
 interface ModTableData extends PackageDetails {
   key: string;

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
-import { RootState } from '../../store/types';
-import { changeTheme } from '../../store/theme-reducer';
+import { RootState } from '../../../shared/store/types';
+import { changeTheme } from '../../../shared/store/theme-reducer';
 import { Switch, Button } from 'antd';
 import { connect } from 'react-redux';
 import { goBack } from 'connected-react-router';

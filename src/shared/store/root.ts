@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
-import * as navBarActions from '../components/window/NavBar/actions';
+import * as navBarActions from '../../renderer/components/window/NavBar/actions';
 import * as gamesActions from './games/actions';
 import {
   actions as packagesActions,
@@ -9,10 +9,10 @@ import {
   epics as packagesEpics,
 } from './packages';
 import packageTableEpics from './games/epics';
-import navBarReducer from '../components/window/NavBar/reducers';
+import navBarReducer from '../../renderer/components/window/NavBar/reducers';
 import themeReducer from './theme-reducer';
 import gamesReducer from './games/reducer';
-import history from '../history';
+import history from '../../renderer/history';
 import { changeTheme } from './theme-reducer';
 import { combineEpics } from 'redux-observable';
 

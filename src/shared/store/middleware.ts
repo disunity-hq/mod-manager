@@ -1,7 +1,7 @@
 import { Middleware } from 'redux';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { RootState } from './types';
-import { setNavBar1Expanded, setNavBar2Expanded } from '../components/window/NavBar/actions';
+import { setNavBar1Expanded, setNavBar2Expanded } from '../../renderer/components/window/NavBar/actions';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const navbarClose: Middleware = ({ dispatch, getState }) => next => action => {
