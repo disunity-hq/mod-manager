@@ -3,10 +3,17 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'connected-react-router';
 import withReduxEnhancer from 'addon-redux/enhancer';
 import { createEpicMiddleware } from 'redux-observable';
-import history from '../../renderer/history';
+import {
+  forwardToMain,
+  forwardToRenderer,
+  triggerAlias,
+  replayActionMain,
+  replayActionRenderer,
+} from 'electron-redux';
 import { navbarClose } from './middleware';
 import { rootReducer, rootEpic } from './root';
-import { RootState, RootAction } from './types';
+import { RootState, RootAction, StoreScope } from './types';
+import { isRenderer } from '../helpers';
 
 // rexport the root types for easy access
 export * from './root';
@@ -15,16 +22,21 @@ export * from './root';
 const initialState: Partial<RootState> = {};
 
 // Export the configure function
-export const configureStore = (state: Partial<RootState> = initialState): Store<RootState> => {
+export const configureStore = (
+  state: Partial<RootState> = initialState,
+  scope: StoreScope = isRenderer ? 'renderer' : 'main'
+): Store<RootState> => {
   const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState, void>();
 
   // configure middlewares
-  const middlewares: Middleware[] = [
-    // Uncomment to have redux update the url bar (probably not necessary)
-    routerMiddleware(history),
-    epicMiddleware,
-    navbarClose,
-  ];
+  let middlewares: Middleware[] = [epicMiddleware, navbarClose];
+
+  if (scope === 'renderer') {
+    const router = routerMiddleware(require('./history').default);
+    middlewares = [forwardToMain, router, ...middlewares];
+  } else if (scope === 'main') {
+    middlewares = [triggerAlias, ...middlewares, forwardToRenderer];
+  }
 
   const enhancers: StoreEnhancer[] = [applyMiddleware(...middlewares)];
 
@@ -49,6 +61,11 @@ export const configureStore = (state: Partial<RootState> = initialState): Store<
   }
 
   epicMiddleware.run(rootEpic);
+  if (scope === 'main') {
+    replayActionMain(store);
+  } else if (scope === 'renderer') {
+    replayActionRenderer(store);
+  }
 
   return store;
 };

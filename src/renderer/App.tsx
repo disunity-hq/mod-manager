@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import * as styles from './App.scss';
 import Nav from './components/window/NavBar/NavBar';
 import WindowTitle from './components/window/Title/Title';
-import history from './history';
+import history from '../shared/store/history';
 import Routes from './Routes';
 import { hot } from 'react-hot-loader';
 

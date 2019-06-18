@@ -7,6 +7,8 @@ export type RootState = StateType<typeof rootReducer>;
 
 export type RootAction = ActionType<typeof rootAction>;
 
+export type StoreScope = 'main' | 'renderer';
+
 interface Types {
   RootAction: RootAction;
 }

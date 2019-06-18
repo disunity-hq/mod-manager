@@ -12,7 +12,7 @@ import packageTableEpics from './games/epics';
 import navBarReducer from '../../renderer/components/window/NavBar/reducers';
 import themeReducer from './theme-reducer';
 import gamesReducer from './games/reducer';
-import history from '../../renderer/history';
+import history from './history';
 import { changeTheme } from './theme-reducer';
 import { combineEpics } from 'redux-observable';
 

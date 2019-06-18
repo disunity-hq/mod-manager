@@ -9,10 +9,13 @@ import 'process';
 import windowStateKeeper from 'electron-window-state';
 import { hashFile, hashText } from './promisified';
 import { TargetHashes } from '../models/TargetInfo';
+import { configureStore } from '../shared/store';
 
 installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
   .then((name): void => console.log(`Added Extension ${name}`))
   .catch((err): void => console.error(err));
+
+const store = configureStore();
 
 let mainWindow: BrowserWindow;
 function createWindow(): void {

@@ -104,6 +104,7 @@
     "axios": "^0.18.0",
     "decompress-zip": "^0.2.2",
     "electron-dl": "^1.14.0",
+    "electron-redux": "^1.4.0",
     "electron-store": "^3.2.0",
     "electron-window-state": "^5.0.3",
     "node-sass": "^4.12.0",

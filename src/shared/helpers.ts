@@ -8,3 +8,5 @@ export const deepFreeze = (obj: { [key: string]: any }): void => {
     }
   }
 };
+
+export const isRenderer = process && process.type === 'renderer';
