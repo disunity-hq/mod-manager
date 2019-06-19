@@ -25,11 +25,11 @@ export const fetchPackagesFlow: Epic<RootAction, RootAction, RootState, void> = 
 ): Observable<FetchSuccessType | FetchFailureType> =>
   action$.pipe(
     filter(isActionOf(fetchPackagesAsync.request)),
-    tap(
-      (action): void => {
-        if (action.meta !== 'risk-of-rain-2_1234') throw new Error('Only RoR2 is mocked currently');
-      }
-    ),
+    // tap(
+    //   (action): void => {
+    //     if (action.meta !== 'risk-of-rain-2_1234') throw new Error('Only RoR2 is mocked currently');
+    //   }
+    // ),
     switchMap(
       (
         action: ReturnType<typeof fetchPackagesAsync['request']>

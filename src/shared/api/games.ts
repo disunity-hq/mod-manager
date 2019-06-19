@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { GamesMap, GameData } from '../../models';
 import { GAME_API_BASE_URL } from './constants';
 import { catchError, map } from 'rxjs/operators';
+import { TargetInfo } from '../../models/TargetInfo';
 
 interface SerializedGameData {
   name: string;
@@ -24,3 +25,6 @@ export const getAll = (): Observable<GamesMap> =>
       }
     )
   );
+
+export const getDetailsByHash = (hash: string): Observable<TargetInfo> =>
+  ajax.getJSON<TargetInfo>(GAME_API_BASE_URL + `/autodetect?hash=${hash}`);

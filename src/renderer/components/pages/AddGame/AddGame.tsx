@@ -1,11 +1,12 @@
 import * as path from 'path';
 import React, { useState, useEffect } from 'react';
-import { Layout, Typography, Button, Spin, Divider, Collapse, Progress, Select } from 'antd';
+import { Layout, Typography, Button, Spin, Divider, Collapse, Progress, Select, Form } from 'antd';
 import { dialog, remote, ipcRenderer } from '../../../services';
 import * as styles from './AddGame.scss';
 import { hot } from 'react-hot-loader';
 import CollapsibleLog, { StepInfo } from '../../window/CollapisbleLog/CollapsibleLog';
 import { TargetInfo, TargetHashes } from '../../../../models/TargetInfo';
+import { ipcConstants } from '../../../../shared/constants';
 
 const { Content } = Layout;
 
@@ -20,6 +21,7 @@ const AddGame = (): React.ReactElement => {
   const [selected, setSelected] = useState<string>(undefined);
   const [steps, setSteps] = useState<StepInfo[]>([]);
   const [targetInfo, setTargetInfo] = useState<TargetInfo>(undefined);
+  const [disunityVersion, setDisunityVersion] = useState<string>();
 
   const addStep = (stepInfo: StepInfo) => {
     setSteps(prevSteps => [...prevSteps, stepInfo]);
@@ -29,26 +31,41 @@ const AddGame = (): React.ReactElement => {
     addStep({ key: 'fetching', name: 'Fetching Game Info' });
     setTimeout(() => {
       addStep({ key: 'done', name: 'Done' });
-      setTargetInfo({ name: '<Insert Target Name Here>', disunityVersions: ['2', '1'], hashes });
+      setTargetInfo({
+        name: 'temp_name',
+        displayName: '<Insert Target Name Here>',
+        disunityVersions: ['2', '1'],
+        hashes,
+        path: '',
+      });
     }, 2000);
   };
+
   const onHashingError = (event: Electron.Event, error: any) => {
     console.error(error);
+  };
+
+  const addTarget = () => {
+    ipcRenderer.send(ipcConstants.CREATE_MANAGED_TARGET, targetInfo);
   };
 
   useEffect(() => {
     if (selected) {
       setSteps([{ key: 'hashing', name: 'Calculating Hashes' }]);
       setTargetInfo(undefined);
-      ipcRenderer.send('calc-target-hashes', selected);
-      ipcRenderer.on('target-hash-results', onHashResults);
-      ipcRenderer.on('target-hashing-error', onHashingError);
+      ipcRenderer.send(ipcConstants.CALC_TARGET_HASHES, selected);
+      ipcRenderer.on(ipcConstants.TARGET_HASHING_RESULTS, onHashResults);
+      ipcRenderer.on(ipcConstants.TARGET_HASHING_ERROR, onHashingError);
     }
     return () => {
-      ipcRenderer.removeListener('target-hash-results', onHashResults);
-      ipcRenderer.removeListener('target-hashing-error', onHashingError);
+      ipcRenderer.removeListener(ipcConstants.TARGET_HASHING_RESULTS, onHashResults);
+      ipcRenderer.removeListener(ipcConstants.TARGET_HASHING_ERROR, onHashingError);
     };
   }, [selected]);
+
+  useEffect(() => {
+    if (targetInfo) setDisunityVersion(targetInfo.disunityVersions[0]);
+  }, [targetInfo]);
 
   return (
     <Layout>
@@ -86,7 +103,11 @@ const AddGame = (): React.ReactElement => {
                 <Text>Hash: {targetInfo.hashes.executable}</Text>
                 <span className="flex">
                   <Text>Available Versions:</Text>
-                  <Select style={{ flexGrow: 1 }} defaultValue={targetInfo.disunityVersions[0]}>
+                  <Select
+                    style={{ flexGrow: 1 }}
+                    defaultValue={targetInfo.disunityVersions[0]}
+                    onChange={(value: string) => setDisunityVersion(value)}
+                  >
                     {targetInfo.disunityVersions.map(ver => (
                       <Select.Option key={ver} value={ver}>
                         {ver}
@@ -95,7 +116,9 @@ const AddGame = (): React.ReactElement => {
                   </Select>
                 </span>
                 <span>
-                  <Button type="primary">Add Target</Button>
+                  <Button type="primary" onClick={addTarget}>
+                    Add Target
+                  </Button>
                 </span>
               </React.Fragment>
             )}

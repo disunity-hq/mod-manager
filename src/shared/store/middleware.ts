@@ -1,7 +1,13 @@
 import { Middleware } from 'redux';
-import { LOCATION_CHANGE } from 'connected-react-router';
-import { RootState } from './types';
-import { setNavBar1Expanded, setNavBar2Expanded } from '../../renderer/components/window/NavBar/actions';
+import { LOCATION_CHANGE, routerMiddleware } from 'connected-react-router';
+import { RootState, RootAction, StoreScope } from './types';
+import {
+  setNavBar1Expanded,
+  setNavBar2Expanded,
+} from '../../renderer/components/window/NavBar/actions';
+import { createEpicMiddleware } from 'redux-observable';
+import { forwardToMain, forwardToRenderer, triggerAlias } from 'electron-redux';
+import createLogger from 'redux-cli-logger';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const navbarClose: Middleware = ({ dispatch, getState }) => next => action => {
@@ -23,3 +29,24 @@ export const navbarClose: Middleware = ({ dispatch, getState }) => next => actio
   }
   return returnValue;
 };
+
+export const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState, void>();
+
+export const createMiddleware = (scope: StoreScope): Middleware[] => {
+  let middlewares: Middleware[] = [epicMiddleware, navbarClose];
+
+  if (scope === 'renderer') {
+    const router = routerMiddleware(require('./history').default);
+    middlewares = [forwardToMain, router, ...middlewares];
+  } else if (scope === 'main') {
+    const logger = createLogger({
+      downArrow: 'V',
+      rightArrow: '>',
+    });
+    middlewares = [triggerAlias, logger, ...middlewares, forwardToRenderer];
+  }
+
+  return middlewares;
+};
+
+export default createMiddleware;

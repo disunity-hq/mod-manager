@@ -5,7 +5,9 @@ import * as ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
 import { configureStore } from '../shared/store';
-import { ipcRenderer } from './services';
+import { ipcRenderer, devtron } from './services';
+
+devtron.install();
 
 const store = configureStore({});
 

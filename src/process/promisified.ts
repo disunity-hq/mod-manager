@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import * as DecompressZip from 'decompress-zip';
 import { createHash } from 'crypto';
 
+const readdir = promisify(fs.readdir);
+const mkdir = promisify(fs.mkdir);
 const readFile = promisify(fs.readFile);
 const copyFile = promisify(fs.copyFile);
 const writeFile = promisify(fs.writeFile);
@@ -61,4 +63,4 @@ const hashText = (text: string, algorithm = 'md5'): Promise<string> => {
   });
 };
 
-export { copyFile, readFile, writeFile, extractZip, unlink, hashFile, hashText };
+export { copyFile, readFile, writeFile, extractZip, unlink, readdir, mkdir, hashFile, hashText };

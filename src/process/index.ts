@@ -6,10 +6,14 @@ import installExtension, {
   REDUX_DEVTOOLS,
 } from 'electron-devtools-installer';
 import 'process';
-import windowStateKeeper from 'electron-window-state';
-import { hashFile, hashText } from './promisified';
-import { TargetHashes } from '../models/TargetInfo';
 import { configureStore } from '../shared/store';
+import { calcTargetHashes, createManagedTarget } from './events';
+import { createMainWindow, getMainWindow } from './windows';
+import { ipcConstants } from '../shared/constants';
+import { TargetInfo } from '../models/TargetInfo';
+import { addGameData } from '../shared/store/games/actions';
+import { getNameFromTarget } from './helpers';
+import { push } from 'connected-react-router';
 
 installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
   .then((name): void => console.log(`Added Extension ${name}`))
@@ -17,53 +21,7 @@ installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
 
 const store = configureStore();
 
-let mainWindow: BrowserWindow;
-function createWindow(): void {
-  const mainWindowState = windowStateKeeper({
-    defaultHeight: 800,
-    defaultWidth: 1000,
-  });
-
-  mainWindow = new BrowserWindow({
-    width: mainWindowState.width,
-    height: mainWindowState.height,
-    x: mainWindowState.x,
-    y: mainWindowState.y,
-    show: false,
-    frame: false,
-    webPreferences: {
-      webSecurity: false,
-      nodeIntegration: true,
-    },
-  });
-
-  mainWindowState.manage(mainWindow);
-
-  mainWindow.once(
-    'ready-to-show',
-    (): void => {
-      if (process.env.NODE_ENV === 'development') {
-        mainWindow.webContents.openDevTools();
-      }
-      mainWindow.show();
-    }
-  );
-
-  const electronUrl =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:9000'
-      : `file://${__dirname}/index.html`;
-  mainWindow.loadURL(electronUrl);
-
-  mainWindow.on(
-    'closed',
-    (): void => {
-      mainWindow = null;
-    }
-  );
-}
-
-app.on('ready', createWindow);
+app.on('ready', createMainWindow);
 
 app.on(
   'window-all-closed',
@@ -75,7 +33,7 @@ app.on(
 app.on(
   'activate',
   (): void => {
-    if (mainWindow === null) createWindow();
+    if (getMainWindow() === null) createMainWindow();
   }
 );
 
@@ -94,7 +52,7 @@ ipcMain.on(
       win.minimize();
     } else {
       // fallback to operating on main window
-      mainWindow.minimize();
+      getMainWindow().minimize();
     }
   }
 );
@@ -105,20 +63,28 @@ ipcMain.on(
     let win = BrowserWindow.fromWebContents(event.sender);
     if (!win) {
       // fallback to operating on main window
-      win = mainWindow;
+      win = getMainWindow();
     }
     win.isMaximized() ? win.unmaximize() : win.maximize();
   }
 );
 
-ipcMain.on('calc-target-hashes', async (event: Electron.Event, filePath: string) => {
+ipcMain.on(ipcConstants.CALC_TARGET_HASHES, async (event: Electron.Event, filePath: string) => {
   try {
-    const executable = await hashFile(filePath);
-    const pathHash = await hashText(filePath);
-    const results: TargetHashes = { executable, path: pathHash };
-    event.sender.send('target-hash-results', results);
+    const hashes = await calcTargetHashes(filePath);
+    event.sender.send(ipcConstants.TARGET_HASHING_RESULTS, hashes);
+    console.log(hashes);
   } catch (err) {
-    console.error(err);
-    event.sender.send('target-hashing-error', err);
+    event.sender.send(ipcConstants.TARGET_HASHING_ERROR, err);
   }
 });
+
+ipcMain.on(
+  ipcConstants.CREATE_MANAGED_TARGET,
+  async (event: Electron.Event, target: TargetInfo) => {
+    await createManagedTarget(target);
+    const targetName = getNameFromTarget(target);
+    store.dispatch(addGameData({ name: target.displayName, id: targetName }));
+    store.dispatch(push(`/games/${targetName}`));
+  }
+);

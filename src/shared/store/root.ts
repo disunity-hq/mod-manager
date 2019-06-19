@@ -8,13 +8,18 @@ import {
   reducer as packagesReducer,
   epics as packagesEpics,
 } from './packages';
-import packageTableEpics from './games/epics';
+import gamesEpics from './games/epics';
 import navBarReducer from '../../renderer/components/window/NavBar/reducers';
 import themeReducer from './theme-reducer';
 import gamesReducer from './games/reducer';
 import history from './history';
 import { changeTheme } from './theme-reducer';
-import { combineEpics } from 'redux-observable';
+import { combineEpics, Epic } from 'redux-observable';
+import { of } from 'rxjs';
+import { RootAction } from 'typesafe-actions/dist/create-reducer';
+import { RootState } from './types';
+
+const nullEpic: Epic<RootAction, RootAction, RootState, void> = () => of();
 
 export const rootAction = {
   navBar: navBarActions,
@@ -31,4 +36,7 @@ export const rootReducer = combineReducers({
   packages: packagesReducer,
 });
 
-export const rootEpic = combineEpics(packageTableEpics, packagesEpics);
+export const rootEpics = {
+  main: combineEpics(gamesEpics, packagesEpics),
+  renderer: combineEpics(nullEpic),
+};

@@ -1,5 +1,11 @@
-import { createCustomAction } from 'typesafe-actions';
-import { ActionBuilderConstructor, TypeConstant } from 'typesafe-actions/dist/type-helpers';
+import { createCustomAction, createAsyncAction } from 'typesafe-actions';
+import {
+  ActionBuilderConstructor,
+  TypeConstant,
+  ActionCreator,
+  PayloadMetaAC,
+} from 'typesafe-actions/dist/type-helpers';
+import { createAliasedAction } from 'electron-redux';
 
 interface LocalMeta {
   scope: 'local';
@@ -30,3 +36,12 @@ export const createLocalAction = <TType extends TypeConstant>(type: TType) => <
     payload,
     meta: { scope: 'local', ...meta },
   })) as ActionBuilderConstructor<TType, TPayload, TMeta>;
+
+export const createTypesafeAliasedAction = <T extends TypeConstant>(
+  type: T,
+  creator: ActionCreator<T>
+) => {
+  const action = createAliasedAction(type, creator);
+  action.getType = () => type;
+  return action;
+};

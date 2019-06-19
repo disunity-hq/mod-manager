@@ -1,17 +1,9 @@
-import { createStore, applyMiddleware, Middleware, StoreEnhancer, Store } from 'redux';
+import { createStore, applyMiddleware, StoreEnhancer, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { routerMiddleware } from 'connected-react-router';
 import withReduxEnhancer from 'addon-redux/enhancer';
-import { createEpicMiddleware } from 'redux-observable';
-import {
-  forwardToMain,
-  forwardToRenderer,
-  triggerAlias,
-  replayActionMain,
-  replayActionRenderer,
-} from 'electron-redux';
-import { navbarClose } from './middleware';
-import { rootReducer, rootEpic } from './root';
+import { replayActionMain, replayActionRenderer } from 'electron-redux';
+import createMiddleware, { epicMiddleware } from './middleware';
+import { rootReducer, rootEpics } from './root';
 import { RootState, RootAction, StoreScope } from './types';
 import { isRenderer } from '../helpers';
 
@@ -26,17 +18,8 @@ export const configureStore = (
   state: Partial<RootState> = initialState,
   scope: StoreScope = isRenderer ? 'renderer' : 'main'
 ): Store<RootState> => {
-  const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState, void>();
-
   // configure middlewares
-  let middlewares: Middleware[] = [epicMiddleware, navbarClose];
-
-  if (scope === 'renderer') {
-    const router = routerMiddleware(require('./history').default);
-    middlewares = [forwardToMain, router, ...middlewares];
-  } else if (scope === 'main') {
-    middlewares = [triggerAlias, ...middlewares, forwardToRenderer];
-  }
+  const middlewares = createMiddleware(scope);
 
   const enhancers: StoreEnhancer[] = [applyMiddleware(...middlewares)];
 
@@ -60,10 +43,11 @@ export const configureStore = (
     );
   }
 
-  epicMiddleware.run(rootEpic);
   if (scope === 'main') {
+    epicMiddleware.run(rootEpics.main);
     replayActionMain(store);
   } else if (scope === 'renderer') {
+    epicMiddleware.run(rootEpics.renderer);
     replayActionRenderer(store);
   }
 
