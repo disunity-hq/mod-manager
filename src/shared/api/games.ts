@@ -1,8 +1,8 @@
 import { ajax } from 'rxjs/ajax';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { GamesMap, GameData } from '../../models';
 import { GAME_API_BASE_URL } from './constants';
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { TargetInfo } from '../../models/TargetInfo';
 
 interface SerializedGameData {
@@ -26,5 +26,5 @@ export const getAll = (): Observable<GamesMap> =>
     )
   );
 
-export const getDetailsByHash = (hash: string): Observable<TargetInfo> =>
+export const findTargetByHash = (hash: string): Observable<TargetInfo> =>
   ajax.getJSON<TargetInfo>(GAME_API_BASE_URL + `/autodetect?hash=${hash}`);

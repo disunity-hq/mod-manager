@@ -1,5 +1,3 @@
-import 'regenerator-runtime/runtime';
-
 import { app, BrowserWindow, ipcMain } from 'electron';
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
