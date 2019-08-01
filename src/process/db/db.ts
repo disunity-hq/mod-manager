@@ -2,29 +2,27 @@ import { app } from 'electron';
 import Datastore from 'nedb';
 import { TargetInfo } from '../../models/TargetInfo';
 import { readdir } from '../promisified';
-import { basename } from 'path';
+import { basename, join } from 'path';
 import { promisify } from 'util';
-import { getNameFromTarget } from '../helpers';
+import { getNameFromTarget, getManagedPathFromTarget } from '../helpers';
 
 const INFO_ID = 'target_info';
 
 const dbFactory = (filename: string): Datastore =>
   new Datastore({ filename: `${app.getPath('userData')}/data/${filename}`, autoload: true });
 
+interface DatabaseMap {
+  [key: string]: Datastore;
+}
+
 class DatabaseManager {
-  private db: { [key: string]: Datastore } = {};
+  private db: DatabaseMap = {};
 
-  public createTargetDB(target: TargetInfo): Promise<void> {
-    const filename = getNameFromTarget(target);
-    return new Promise((resolve, reject) => {
-      const db = dbFactory(`${filename}.db`);
-      db.insert({ _id: INFO_ID, ...target }, err => {
-        if (err) reject(err);
-        else resolve();
-      });
-
-      this.db[filename] = db;
-    });
+  public async createTargetDB(target: TargetInfo): Promise<void> {
+    const managedFolder = getManagedPathFromTarget(target);
+    const filename = join(managedFolder, 'mods.db');
+    const db = dbFactory(filename);
+    this.db[filename] = db;
   }
 
   public async loadTargetDBs(): Promise<void> {
@@ -32,7 +30,7 @@ class DatabaseManager {
       .filter(f => f.endsWith('.db'))
       .map(f => basename(f).slice(0, -3));
 
-    const db: { [key: string]: Datastore } = {};
+    const db: DatabaseMap = {};
     for (const filename of files) {
       db[filename] = dbFactory(`${filename}.db`);
     }

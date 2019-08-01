@@ -25,3 +25,9 @@ export default class Helpers {
 
 export const getNameFromTarget = (target: TargetInfo) =>
   `${target.name}-${target.hashes.path.slice(0, TARGET_NAME_HASH_SIZE)}`;
+
+export const getManagedPathFromTarget = (target: TargetInfo): string => {
+  const managedTargetFolderName = getNameFromTarget(target);
+  const managedFolder = path.join(app.getPath('userData'), 'managed', managedTargetFolderName);
+  return managedFolder;
+};

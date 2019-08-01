@@ -9,6 +9,9 @@ const readFile = promisify(fs.readFile);
 const copyFile = promisify(fs.copyFile);
 const writeFile = promisify(fs.writeFile);
 const unlink = promisify(fs.unlink);
+const symlink = promisify(fs.symlink);
+const rename = promisify(fs.rename);
+const exists = promisify(fs.exists);
 
 const extractZip = (zipPath: string, extractPath: string) => {
   return new Promise<void>(
@@ -63,4 +66,17 @@ const hashText = (text: string, algorithm = 'md5'): Promise<string> => {
   });
 };
 
-export { copyFile, readFile, writeFile, extractZip, unlink, readdir, mkdir, hashFile, hashText };
+export {
+  copyFile,
+  readFile,
+  writeFile,
+  extractZip,
+  unlink,
+  readdir,
+  mkdir,
+  hashFile,
+  hashText,
+  symlink,
+  rename,
+  exists,
+};
