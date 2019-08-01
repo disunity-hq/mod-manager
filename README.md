@@ -19,7 +19,7 @@ Outputs a build to the projectdir/build/ folder
 # Testing
 ### Running the Test Suite
 - ```yarn test [--collect-coverage]```
-Runs all structrual and interaction tests. Optionally accepts the `---collect-coverage` flag to generate code coverage report
+Runs all structrual and interaction tests. Optionally accepts the `--collect-coverage` flag to generate code coverage report
 
 
 # Extra Tools
