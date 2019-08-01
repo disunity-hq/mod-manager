@@ -14,7 +14,6 @@ const fakeTargetInfo: TargetInfo = {
   hashes: { executable: '', path: '' },
   displayName: 'Risk of Rain 2',
   name: 'risk-of-rain-2',
-  path: '',
 };
 
 export const getAll = (): Observable<GamesMap> => of(fakeGameMap);

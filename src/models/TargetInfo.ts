@@ -6,14 +6,12 @@ export interface DisunityVersion {
 export interface TargetInfo {
   name: string;
   displayName: string;
+  hashes: TargetHashes;
+  disunityVersions: string[];
   iconUrl?: string;
 }
 
 export interface TargetHashes {
   executable: string;
   path: string;
-}
-
-export interface TargetDetails extends TargetInfo {
-  disunityVersions: DisunityVersion[];
 }

@@ -36,7 +36,6 @@ const AddGame = (): React.ReactElement => {
         displayName: '<Insert Target Name Here>',
         disunityVersions: ['2', '1'],
         hashes,
-        path: '',
       });
     }, 2000);
   };
