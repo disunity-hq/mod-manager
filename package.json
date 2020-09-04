@@ -94,7 +94,7 @@
     "axios": "^0.18.0",
     "decompress-zip": "^0.2.2",
     "electron-dl": "^1.14.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^6.0.0",
