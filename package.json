@@ -91,7 +91,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "antd": "^3.16.6",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "decompress-zip": "^0.2.2",
     "electron-dl": "^1.14.0",
     "node-sass": "^4.12.0",
